@@ -1,0 +1,239 @@
+\documentclass[11pt, twoside, a4paper]{article}
+
+% Setup
+\usepackage[margin=2.4cm, top=3.5cm]{geometry}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+
+% Package imports
+\usepackage{amsfonts}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage[pagestyles]{titlesec}
+\usepackage{fancyhdr}
+\usepackage{colonequals}
+\usepackage{caption}
+\usepackage{tikz}
+\usepackage{marginnote}
+\usepackage{etoolbox}
+\usepackage{mdframed}
+\usepackage{aligned-overset}
+\usepackage{esint}
+\usepackage{scalerel}
+
+% Font-Encoding
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% TikZ packages
+\usetikzlibrary{patterns}
+
+% Theorems
+\newtheoremstyle{plain}{}{}{}{}{\bfseries}{.}{ }{}
+\theoremstyle{plain}
+\newtheorem{blockelement}{Blockelement}[subsection]
+\newtheorem{bemerkung}[blockelement]{Bemerkung}
+\newtheorem{definition}[blockelement]{Definition}
+\newtheorem{lemma}[blockelement]{Lemma}
+\newtheorem{satz}[blockelement]{Satz}
+\newtheorem{notation}[blockelement]{Notation}
+\newtheorem{korollar}[blockelement]{Korollar}
+\newtheorem{uebung}[blockelement]{Übung}
+\newtheorem{beispiel}[blockelement]{Beispiel}
+\newtheorem{folgerung}[blockelement]{Folgerung}
+\newtheorem{axiom}[blockelement]{Axiom}
+\newtheorem{beobachtung}[blockelement]{Beobachtung}
+\newtheorem{konzept}[blockelement]{Konzept}
+\newtheorem{visualisierung}[blockelement]{Visualisierung}
+\newtheorem{anwendung}[blockelement]{Anwendung}
+\newtheorem{skizze}[blockelement]{Skizze}
+\newtheorem{genv}[blockelement]{}
+
+% Numbering (equations and conditions)
+\numberwithin{equation}{subsection}
+\newcommand{\numbereq}[1]{\addtocounter{equation}{1}\tag{\theequation}\label{#1}}
+\newcounter{condition}
+\renewcommand{\thecondition}{V\arabic{condition}}
+\newcommand{\condition}[1]{\hypertarget{#1}{\refstepcounter{condition}(\label{#1}\thecondition})}
+
+% Marginnotes left
+\makeatletter
+\patchcmd{\@mn@@@marginnote}{\begingroup}{\begingroup\@twosidefalse}{}{\fail}
+\reversemarginpar
+\makeatother
+
+% Long equations
+\allowdisplaybreaks
+
+% \left \right
+\newcommand{\set}[1]{\left\{#1\right\}}
+\newcommand{\pair}[1]{\left(#1\right)}
+\newcommand{\of}[1]{\mathopen{}\mathclose{}\bgroup\left(#1\aftergroup\egroup\right)}
+\newcommand{\abs}[1]{\left\lvert#1\right\rvert}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\linterv}[1]{\left[#1\right)}
+\newcommand{\rinterv}[1]{\left(#1\right]}
+\newcommand{\interv}[1]{\left[#1\right]}
+\newcommand{\sprod}[1]{\left<#1\right>}
+
+% Shorten commands
+\newcommand{\equivalent}[0]{\Leftrightarrow{}}
+\newcommand{\impl}[0]{\Rightarrow{}}
+\newcommand{\fromto}{\rightarrow{}}
+\newcommand{\definedasequiv}[0]{\ratio\Leftrightarrow{}}
+\newcommand{\exclude}[0]{\setminus}
+\renewcommand{\emptyset}{\varnothing}
+\newcommand{\dif}{\mathop{}\!\mathrm{d}}
+
+\newcommand{\ntoinf}[0]{n\fromto\infty}
+\newcommand{\toinf}{\fromto\infty}
+\newcommand{\fa}{\;\forall}
+\newcommand{\ex}{\;\exists}
+\newcommand{\conj}[1]{\overline{#1}}
+\newcommand{\comp}[1]{{#1}^{\mathrm{C}}}
+
+\newcommand{\annot}[3][]{\overset{\text{#3}}#1{#2}}
+\newcommand{\biglim}[1]{{\displaystyle \lim_{#1}}}
+\newcommand{\anf}[1]{\glqq{}#1\grqq}
+\newcommand{\OBDA}{o.B.d.A. }
+\newcommand{\theoremescape}{\leavevmode}
+\newcommand{\aligntoright}[2]{\hfill#1\hspace{#2\textwidth}~}
+\newcommand{\horizontalline}[0]{\par\noindent\rule{0.05\textwidth}{0.1pt}\\}
+\newcommand{\rgbcolor}[3]{rgb,255:red,#1;green,#2;blue,#3}
+\newcommand{\fixedspace}[2]{\makebox[#1][l]{#2}}
+\newcommand{\ov}[1]{\overline{#1}}
+\newcommand{\un}[1]{\underline{#1}}
+\newcommand{\verteq}{\rotatebox{-90}{$~=$}}
+\newcommand{\equalto}[2]{\underset{\scriptstyle\overset{\mkern4mu\verteq}}{#1}}
+\newcommand{\eqbelow}[1]{\underset{\verteq}{#1}}
+
+\let\Re\relax
+\let\Im\relax
+
+% MathOperators
+\DeclareMathOperator{\grad}{Grad}
+\DeclareMathOperator{\bild}{Bild}
+\DeclareMathOperator{\Re}{Re}
+\DeclareMathOperator{\Im}{Im}
+\DeclareMathOperator{\arcsinh}{arcsinh}
+\DeclareMathOperator{\arccosh}{arccosh}
+\DeclareMathOperator{\diam}{diam}
+\DeclareMathOperator{\fehler}{Fehler}
+\DeclareMathOperator{\D}{D\!}
+\DeclareMathOperator{\Id}{Id}
+\DeclareMathOperator{\op}{op}
+\DeclareMathOperator{\rank}{rk}
+\DeclareMathOperator{\spann}{Spann  }
+
+% Mengenbezeichner
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\K}{\mathbb{K}}
+
+\newcommand{\mR}{\mathcal{R}}
+\newcommand{\mB}{\mathcal{B}}
+\newcommand{\mC}{\mathcal{C}}
+\newcommand{\mL}{\mathcal{L}}
+\newcommand{\mJ}{\mathcal{J}}
+\newcommand{\mPC}{\mathcal{PC}}
+\newcommand{\mM}{\mathcal{M}}
+\newcommand{\mS}{\mathcal{S}}
+
+% Spezielle Symbole
+\NewDocumentCommand{\Tau}{e{^_}}{
+    \scalerel*{\tau}{X}
+    \IfValueT{#1}{^{#1}}
+    \IfValueT{#2}{_{\!\!#2}}
+}
+
+% Spezielle Commands
+\newcommand\imaginarysubsection[1]{
+    \refstepcounter{subsection}
+    \subsectionmark{#1}
+}
+
+% Unfassbar hässlich, aber effektiv für temporäre schnelle Lösungen
+\def\:={\coloneqq}
+\def\->{\fromto}
+\def\=>{\impl}
+\def\<={\leq}
+\def\>={\geq}
+
+% Envs
+\newenvironment{induktionsanfang}{
+    \rule{0pt}{3ex}\noindent
+    \begin{minipage}[t]{0.11\textwidth}
+    {I-Anfang}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.89\textwidth}
+    }
+    {
+    \end{minipage}
+}
+\newenvironment{induktionsvoraussetzung}{
+    \rule{0pt}{3ex}\noindent
+    \begin{minipage}[t]{0.11\textwidth}
+    {I-Vor.}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.89\textwidth}
+    }
+    {
+    \end{minipage}
+}
+\newenvironment{induktionsschritt}{
+    \rule{0pt}{3ex}\noindent
+    \begin{minipage}[t]{0.11\textwidth}
+    {I-Schritt}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[t]{0.89\textwidth}
+    }
+    {
+    \end{minipage}
+}
+
+% Section style
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\large\bfseries}
+
+% Page styles
+\newpagestyle{pagenumberonly}{
+    \sethead{}{}{}
+    \setfoot[][][\thepage]{\thepage}{}{}
+}
+\newpagestyle{headfootdefault}{
+    \sethead[][][\thesubsection~\textit{\subsectiontitle}]{\thesection~\textit{\sectiontitle}}{}{}
+    \setfoot[][][\thepage]{\thepage}{}{}
+}
+\pagestyle{headfootdefault}
+
+\begin{document}
+    \title{\vspace{3cm} Skript zur Vorlesung\\Analysis III\\bei Prof. Dr. Dirk Hundertmark}
+    \author{Karlsruher Institut für Technologie}
+    \date{Wintersemester 2024/25}
+    \maketitle
+    \begin{center}
+        Dieses Skript ist inoffiziell. Es besteht kein\\Anspruch auf Vollständigkeit oder Korrektheit.
+    \end{center}
+    \thispagestyle{empty}
+    \newpage
+
+    \tableofcontents
+    ~\\
+    Alle mit [*] markierten Kapitel sind noch nicht Korrektur gelesen und bedürfen eventuell noch Änderungen.
+
+    \newpage
+
+
+\end{document}
