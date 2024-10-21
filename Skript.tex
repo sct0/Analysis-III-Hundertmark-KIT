@@ -129,7 +129,8 @@
 \DeclareMathOperator{\Id}{Id}
 \DeclareMathOperator{\op}{op}
 \DeclareMathOperator{\rank}{rk}
-\DeclareMathOperator{\spann}{Spann  }
+\DeclareMathOperator{\spann}{Spann}
+\DeclareMathOperator{\flaeche}{Fläche}
 
 % Mengenbezeichner
 \newcommand{\R}{\mathbb{R}}
@@ -234,6 +235,160 @@
     Alle mit [*] markierten Kapitel sind noch nicht Korrektur gelesen und bedürfen eventuell noch Änderungen.
 
     \newpage
+    
+    \section{Einleitung: Motivation für Maßtheorie}
+    \imaginarysubsection{Einleitung}
+    \thispagestyle{pagenumberonly}
+    
+    Wir wollen in diesem Modul eine Theorie erarbeiten, um Teilmengen des $\R^n$ messen zu können. Außerdem soll diese Zuordnung eines Inhalts bestimmten Anforderungen genügen. Wenn wir zum Beispiel zwei Teilmengen des $\R^2$ $A$ und $B$ betrachten, die disjunkt sind, dann soll nach unserem intuitiven geometrischen Verständnis auch gelten
+    \begin{align*}
+        \flaeche\of{A\cup B} &= \flaeche\of{A} + \flaeche\of{B}
+    \end{align*}
+
+    \noindent Für einfache Teilmengen des $\R^2$ haben wir bereits eine Möglichkeit, deren Flächeninhalt zu messen
+
+    \begin{beispiel}[Meßen eines Rechtecks]
+        Im Fall eines Rechteckes $R\subseteq\R^2$ mit den Seitenlängen $a$ und $b$ wissen wir bereits, dass wir einen sinnvollen Flächeninhalt durch
+        \begin{align*}
+            \flaeche\of{R} &= a\cdot b
+        \end{align*}
+        berechnen können.
+    \end{beispiel}
+
+    \begin{beispiel}[Meßen eines Dreiecks]
+        Auch für ein Dreieck $D\subseteq\R^2$ mit Grundfläche $g$ und Höhe $h$ kennen wir die Formel
+        \begin{align*}
+            \flaeche\of{D} &= \frac{1}{2}gh
+        \end{align*}
+    \end{beispiel}
+
+    So können wir auch komplexere Formen mittels (abzählbar) unendlich vielen Dreiecken approximieren. Allerdings gibt es auch Fälle, in denen wir dabei auf Schwierigkeiten stoßen (siehe Cantorsches Dikontinuum).\\
+
+    Wir wollen ein Maß finden, also nach unserem Verständnis eine Abbildung $\mu: \mathcal{F} \to \interv{0, \infty}$, wobei $\mathcal{F} \subseteq \mathcal{P}\of{E}$ ein System von Teilmengen von $E\neq\emptyset$ ist. Außerdem soll gelten, dass
+
+    \begin{enumerate}[label=(\roman*)]
+        \item $\mu\of{\emptyset} = 0$
+        \item Für $A, B\in\mathcal{F}$ mit $A\cap B = \emptyset$ soll gelten $\mu\of{A \cup B} = \mu\of{A} + \mu\of{B}$
+        \item ??
+    \end{enumerate}
+
+    \newpage
+
+    \section{$\sigma$-Algebren}
+    \imaginarysubsection{$\sigma$-Algebra}
+    \thispagestyle{pagenumberonly}
+
+    \begin{definition}[$\sigma$-Algebra]
+        Sei $E\neq \emptyset$ eine Menge. Eine $\sigma$-Algebra in $E$ ist ein System von Teilmengen $\mathcal{A} \subseteq \mathcal{P}\of{E}$ von $E$ mit folgenden Eingeschaften
+        \begin{enumerate}[label=(\roman*)]
+            \item $E\in\mathcal{A}$
+            \item $A\in\mathcal{A} \impl A^{\mathrm{C}} \coloneqq E \exclude A \in\mathcal{A}$
+            \item Für $n\in\N$ und $A_n\in\mathcal{A} \impl \bigcup_{n\in\N} A_n \in\mathcal{A}$. Das heißt $\mathcal{A}$ ist stabil unter (abzählbaren) Vereinigungen
+        \end{enumerate}
+        Eine Menge $A\in\mathcal{A}$ heißt messbar ($\mathcal{A}$-messbar).
+    \end{definition}
+
+    \begin{lemma}[Eigenschaften von $\sigma$-Algebren]
+        Sei $\mathcal{A}$ eine $\sigma$-Algebra in $E$. Dann gilt
+        \begin{enumerate}[label=(\roman*)]
+            \item $\emptyset\in\mathcal{A}$
+            \item $A, B\in\mathcal{A} \impl \pair{A\cup B} \in\mathcal{A}$ (das heißt $\mathcal{A}$ ist auch stabil unter endlichen Vereinigungen)
+            \item Für eine Folge von Mengen in der Algebra $\pair{A_n}_n \subseteq \mathcal{A}$ gilt $\bigcap_{n=1}^{\infty} A_n \in\mathcal{A}$
+            \item $A, B\in\mathcal{A} \impl A \exclude B = A \cap \comp{B} \in \mathcal{A}$
+        \end{enumerate}
+
+        \begin{proof}
+            \theoremescape
+            \begin{enumerate}[label=(\roman*)]
+                \item $E\in\mathcal{A} \impl \emptyset = \comp{E} \in\mathcal{A}$
+                \item Wir definieren $A_1 \coloneqq A$, $A_2 \coloneqq B$ und $A_i \coloneqq \emptyset$ für $i\geq 3$. Dann gilt
+                \begin{align*}
+                    A \cup B &= \bigcup_{n\in\N}^{\infty} A_n \in \mathcal{A}
+                \end{align*}
+                \item $A_n \in \mathcal{A} \impl \comp{\pair{A_n}} \in \mathcal{A} \impl \bigcup_{n=1}^{\infty} \comp{\pair{A_n}} \in \mathcal{A} \impl \comp{\pair{\comp{\pair{\bigcup_{n=1}^{\infty} A_n}}}} \in \mathcal{A} \impl \bigcup_{n=1}^{\infty} A_n\in\mathcal{A}$
+                \item $A\exclude B = A \cap \comp{B} = A \cap \comp{B} \cap E \cap E \cap \dots$. Dann gilt nach (iii), dass $A \exclude B \in\mathcal{A}$
+            \end{enumerate}
+        \end{proof}
+    \end{lemma}
+
+    \begin{beispiel}
+        Wir betrachten einige Beispiele für $\sigma$-Algebren
+        \begin{enumerate}[label=(\alph*)]
+            \item Für eine Mengen $E$ ist die Potenzmenge selber $\mathcal{P}\of{E}$ nach Definition immer eine $\sigma$-Algebra über $E$.
+            \item $\set{\emptyset, E}$ ist die kleinste $\sigma$-Algebra in $E$.
+            \item Für $A \subseteq E$ gilt $\mathcal{A} \coloneqq \set{\emptyset, A, \comp{A}, E}$ ist die kleinste $\sigma$-Algebra, die $A$ enthält.
+            \item Sei $E$ überabzählbar. Dann ist $\mathcal{A} \coloneqq \set{A\subseteq E: A \text{ oder }\comp{A}\text{ ist abzählbar}}$ eine $\sigma$-Algebra.
+            \item Sei $\mathcal{A}$ eine $\sigma$-Algebra in $E$. Für $F\subseteq E$ beliebig ist $\mathcal{A}_F \coloneqq \set{A \cap F: A\in\mathcal{A}}$ die Spur-$\sigma$-Algebra von $F$.
+            \item Seien $E, E'$ nicht-leere Mengen, $f: E\to E'$ eine Funktion und $\mathcal{A}'$ eine $\sigma$-Algebra in $E'$. Dann ist auch
+            \begin{align*}
+                \mathcal{A} \coloneqq \set{f^{-1}\of{A'}: A'\in\mathcal{A}'}
+            \end{align*}
+            eine $\sigma$-Algebra.
+        \end{enumerate}
+
+        \begin{proof}[Beweis von (d)]
+            Wir prüfen die Kriterien
+            \begin{enumerate}[label=(\roman*)]
+                \item $\comp{E} = \emptyset$ ist abzählbar $\impl E\in\mathcal{A}$
+                \item $A\in\mathcal{A} \equivalent A$ oder $\comp{A}$ ist abzählbar $\equivalent \comp{A}$ oder $\comp{\pair{\comp{A}}}$ ist abzählbar $\equivalent \comp{A} \in\mathcal{A}$
+                \item Sei $A_n \in\mathcal{A}$ für $n\in\N$. Wir unterscheiden ? Fälle\\
+                \textsc{Fall 1}: Alle $A_n$ sind abzählbar. Dann ist auch $\bigcup_{n\in\N} A_n$ abzählbar.\\
+                \textsc{Fall 2}: Ein $A_j$ ist überabzählbar. Dann ist aber $\comp{\pair{A_j}}$ abzählbar. Das heißt $\bigcap_{n=1}^{\infty} \comp{A_n} \subseteq \comp{A_j}$ ist abzählbar. Dann ist $\comp{\pair{\bigcup_{n=1}^{\infty} A_n}} = \bigcap_{n=1}^{\infty} \comp{\pair{A_n}}$ abzählbar. Das heißt $\bigcup_{n=1} A_n \in\mathcal{A}$
+            \end{enumerate}
+        \end{proof}
+    \end{beispiel}
+    
+    \begin{notation}
+        Seien $I$ eine beliebige Menge und $A_j$, $j\in I$ eine beliebige Familie von Mengensystemen in $E$. Dann ist
+        \begin{align*}
+            \bigcap_{j\in I} \mathcal{A}_j \coloneqq \set{A: A \subseteq \mathcal{A}_j \forall j\in I}
+        \end{align*}
+        der Durchschnitt der $\mathcal{A}_j$.
+    \end{notation}
+
+    \begin{satz} % Satz 4
+        \label{satz:schnitt-sig-algebra}
+        Sei $I$ eine beliebige Menge und $\mathcal{A}_j$ eine $\sigma$-Algebra in $E$. Dann gilt
+        \begin{align*}
+            \bigcap_{j\in I} \mathcal{A}_j
+        \end{align*}
+        ist wieder eine $\sigma$-Algebra.
+        \begin{proof}
+            \theoremescape
+            \begin{enumerate}[label=(\roman*)]
+                \item $E\in\mathcal{A}_j~\forall j\in I \impl E \subseteq \bigcap_{j\in I} \mathcal{A}_j$
+                \item $A \subseteq \bigcap_{j\in I} \mathcal{A}_j \equivalent A \subseteq \mathcal{A}_j~\forall j\in I$. Daraus folgt $\comp{A} \subseteq \mathcal{A}_j~\forall j\in I \impl A \subseteq \bigcap_{j\in I}\mathcal{A_j}$
+                \item Sei $A_n \subseteq \bigcap_{j\in I} \mathcal{A}_j$. Dann gilt $A_n \in \mathcal{A}_j~\forall j\in I \impl \bigcup_{n\in\N} A_n \in \mathcal{A_j}~\forall j\in I$
+            \end{enumerate}
+        \end{proof}
+    \end{satz}
+
+    \begin{satz} % Satz 5
+        Sei $\zeta \subseteq \mathcal{P}\of{E}$ für $E$ nicht-leer ein Mengensystem von Teilmengen von $E$. Dann existiert eine kleinste $\sigma$-Algebra $\sigma\of{E}$ in $E$, welche $\zeta$ enthält. Das heißt
+        \begin{enumerate}[label=(\alph*)]
+            \item $\sigma\of{\zeta}$ ist eine $\sigma$-Algebra in $E$
+            \item Für eine $\sigma$-Algebra $\mathcal{A}$ in $E$ mit $\zeta\subseteq A$ folgt $\sigma\of{\zeta} \subseteq \mathcal{A}$
+        \end{enumerate}
+        Wir nennen $\sigma\of{\zeta}$ in diesem Fall die von $\zeta$ erzeugte $\sigma$-Algebra und $\zeta$ den Erzeuger von $\sigma\of{\zeta}$.
+        \begin{proof}
+            Wir definieren $I \coloneqq \set{\mathcal{A}: \mathcal{A} \text{ ist $\sigma$-Algebra und } \zeta\subseteq\mathcal{A}}$ die Menge aller $\sigma$-Algebren, die $\zeta$ enthalten. Dabei gilt $I$ nicht-leer, da $\mathcal{P}\of{E}\in I$. Damit gilt nach Satz~\ref{satz:schnitt-sig-algebra}, dass
+            \begin{align*}
+                \sigma\of{\zeta} \coloneqq \bigcap_{\mathcal{A}\in I} \mathcal{A}
+            \end{align*}
+            eine $\sigma$-Algebra ist. Dabei ist $\zeta \subseteq \sigma\of{\zeta}$ nach Voraussetzung an $I$. Und nach unserem Beweis ist auch Anforderung (b) erfüllt.
+        \end{proof}
+    \end{satz}
+
+    \begin{beispiel}
+        Sei $\zeta \coloneqq \set{A}$. Dann ist $\set{\emptyset, A, \comp{A}, E}$ die von $\zeta$ erzeugte $\sigma$-Algebra.
+    \end{beispiel}
+
+    \begin{definition}
+        Sei $\mathcal{O}_d$ das System der offenen Mengen im $\R^d$. Dann definieren wir die \textit{Borel-$\sigma$-Algebra}
+        \begin{align*}
+            \mathcal{B}_d = \mathcal{B}\of{\R^d} \coloneqq \sigma\of{\mathcal{O}_d}
+        \end{align*}
+    \end{definition}
 
 
 \end{document}
