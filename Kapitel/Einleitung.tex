@@ -1,0 +1,52 @@
+\section{Einleitung: Motivation für Maßtheorie}
+\imaginarysubsection{Einleitung}
+\thispagestyle{pagenumberonly}
+
+\marginnote{[21. Okt]}
+
+Wir wollen in diesem Modul eine Theorie erarbeiten, um Teilmengen des $\R^n$ messen (das heißt ihnen einen Inhalt zuordnen) zu können. Außerdem soll diese Zuordnung eines Inhalts bestimmten (intuitiv klaren) Anforderungen genügen. Wenn wir zum Beispiel zwei Teilmengen des $\R^2$ $A$ und $B$, die disjunkt sind und denen wir entsprechende Inhalte zugeordnet haben, betrachten, dann soll nach unserem intuitiven geometrischen Verständnis auch gelten
+\begin{align*}
+    \flaeche\of{A\cup B} &= \flaeche\of{A} + \flaeche\of{B}
+\end{align*}
+
+\noindent Für einfache Teilmengen des $\R^2$ haben wir bereits eine Möglichkeit, deren Flächeninhalt zu messen:
+
+\begin{beispiel}[Messen eines Rechtecks]
+    Im Fall eines Rechteckes $R\subseteq\R^2$ mit den Seitenlängen $a$ und $b$ wissen wir bereits, dass wir einen sinnvollen Flächeninhalt durch
+    \begin{align*}
+        \flaeche\of{R} &= a\cdot b
+    \end{align*}
+    berechnen können.
+\end{beispiel}
+
+\begin{beispiel}[Messen eines Dreiecks]
+    Auch für ein Dreieck $D\subseteq\R^2$ mit Grundfläche $g$ und Höhe $h$ kennen wir die Formel
+    \begin{align*}
+        \flaeche\of{D} &= \frac{1}{2}gh
+    \end{align*}
+\end{beispiel}
+
+\begin{beispiel}[Parkettierung]
+    Wir können auch eine komplexere Form $F \subseteq\R^2$ mittels (abzählbar) unendlich vielen Dreiecken approximieren. Dafür nehmen wir abzählbar viele paarweise disjunkte Dreiecke $(\Delta_n)_n$, sodass $\dsty\bigcup_{j\in\N} \Delta_j = F$. Dann gilt
+    \begin{align*}
+        \flaeche\of{F} &= \flaeche\of{\bigcup_{j\in\N} \Delta_j} \annot{=}{(\footnotemark)} \sum_{j=1}^{\infty} \flaeche\of{\Delta_j}
+    \end{align*}
+    \footnotetext{$\sigma$-Additivität}
+\end{beispiel}
+
+\begin{bemerkung}
+    Wir wollen dementsprechend ein Maß finden, also nach unserem Verständnis eine Abbildung $\mu: \mathcal{F} \to \interv{0, \infty}$, wobei $\mathcal{F} \subseteq \mathcal{P}\of{E} \coloneqq \set{U: U \subseteq E}$ eine Familie von Teilmengen von $E\neq\emptyset$ ist. Außerdem soll gelten, dass
+
+    \begin{enumerate}[label=(\roman*)]
+        \item $\mu\of{\emptyset} = 0$
+        \item Für $A, B\in\mathcal{F}$ mit $A\cap B = \emptyset$ ist $\mu\of{A \cup B} = \mu\of{A} + \mu\of{B}$
+        \item Für eine Folge $A_n \in \mathcal{F}$ mit $A_n \cap A_m = \emptyset$ für $n\neq m$ ist
+        \begin{align*}
+            \mu\of{\dsty\bigcup_{n\in\N} A_n} = \sum_{j=1}^{\infty} \mu\of{A_n}
+        \end{align*}
+    \end{enumerate}
+    Diese Liste an Eigenschaften führt wie wir später sehen werden zu einer reichhaltigen Theorie
+\end{bemerkung}
+
+
+\newpage

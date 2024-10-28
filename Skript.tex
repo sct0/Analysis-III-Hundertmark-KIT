@@ -85,20 +85,18 @@
 % Shorten commands
 \newcommand{\equivalent}[0]{\Leftrightarrow{}}
 \newcommand{\impl}[0]{\Rightarrow{}}
-\newcommand{\fromto}{\rightarrow{}}
 \newcommand{\definedasequiv}[0]{\ratio\Leftrightarrow{}}
-\newcommand{\exclude}[0]{\setminus}
 \renewcommand{\emptyset}{\varnothing}
 \newcommand{\dif}{\mathop{}\!\mathrm{d}}
+\newcommand{\dsty}{\displaystyle}
 
-\newcommand{\toinf}{\fromto\infty}
+\newcommand{\toinf}{\to\infty}
 \newcommand{\fa}{\;\forall}
 \newcommand{\ex}{\;\exists}
 \newcommand{\conj}[1]{\overline{#1}}
 \newcommand{\comp}[1]{{#1}^{\mathrm{C}}}
 
 \newcommand{\annot}[3][]{\overset{\text{#3}}#1{#2}}
-\newcommand{\biglim}[1]{{\displaystyle \lim_{#1}}}
 \newcommand{\anf}[1]{\glqq{}#1\grqq}
 \newcommand{\OBDA}{o.B.d.A. }
 \newcommand{\theoremescape}{\leavevmode}
@@ -106,11 +104,6 @@
 \newcommand{\horizontalline}[0]{\par\noindent\rule{0.05\textwidth}{0.1pt}\\}
 \newcommand{\rgbcolor}[3]{rgb,255:red,#1;green,#2;blue,#3}
 \newcommand{\fixedspace}[2]{\makebox[#1][l]{#2}}
-\newcommand{\ov}[1]{\overline{#1}}
-\newcommand{\un}[1]{\underline{#1}}
-\newcommand{\verteq}{\rotatebox{-90}{$~=$}}
-\newcommand{\equalto}[2]{\underset{\scriptstyle\overset{\mkern4mu\verteq}}{#1}}
-\newcommand{\eqbelow}[1]{\underset{\verteq}{#1}}
 
 \let\Re\relax
 \let\Im\relax
@@ -168,7 +161,7 @@
 
 % Unfassbar hässlich, aber effektiv für temporäre schnelle Lösungen
 \def\:={\coloneqq}
-\def\->{\fromto}
+\def\->{\to}
 \def\=>{\impl}
 \def\<={\leq}
 \def\>={\geq}
@@ -241,45 +234,7 @@
     \newpage
 
 
-    \section{[*] Einleitung: Motivation für Maßtheorie}
-    \imaginarysubsection{Einleitung}
-    \thispagestyle{pagenumberonly}
-
-    \marginnote{[21. Okt]}
-
-    Wir wollen in diesem Modul eine Theorie erarbeiten, um Teilmengen des $\R^n$ messen (das heißt ihnen einen Inhalt zuordnen) zu können. Außerdem soll diese Zuordnung eines Inhalts bestimmten (intuitiv klaren) Anforderungen genügen. Wenn wir zum Beispiel zwei Teilmengen des $\R^2$ $A$ und $B$, die disjunkt sind und denen wir entsprechende Inhalte zugeordnet haben, betrachten, dann soll nach unserem intuitiven geometrischen Verständnis auch gelten
-    \begin{align*}
-        \flaeche\of{A\cup B} &= \flaeche\of{A} + \flaeche\of{B}
-    \end{align*}
-
-    \noindent Für einfache Teilmengen des $\R^2$ haben wir bereits eine Möglichkeit, deren Flächeninhalt zu messen:
-
-    \begin{beispiel}[Messen eines Rechtecks]
-        Im Fall eines Rechteckes $R\subseteq\R^2$ mit den Seitenlängen $a$ und $b$ wissen wir bereits, dass wir einen sinnvollen Flächeninhalt durch
-        \begin{align*}
-            \flaeche\of{R} &= a\cdot b
-        \end{align*}
-        berechnen können.
-    \end{beispiel}
-
-    \begin{beispiel}[Messen eines Dreiecks]
-        Auch für ein Dreieck $D\subseteq\R^2$ mit Grundfläche $g$ und Höhe $h$ kennen wir die Formel
-        \begin{align*}
-            \flaeche\of{D} &= \frac{1}{2}gh
-        \end{align*}
-    \end{beispiel}
-
-    So können wir auch komplexere Formen mittels (abzählbar) unendlich vielen Dreiecken approximieren. Allerdings gibt es auch Fälle, in denen wir dabei auf Schwierigkeiten stoßen (siehe Cantorsches Diskontinuum).\\
-
-    Wir wollen ein Maß finden, also nach unserem Verständnis eine Abbildung $\mu: \mathcal{F} \to \interv{0, \infty}$, wobei $\mathcal{F} \subseteq \mathcal{P}\of{E}$ ein System von Teilmengen von $E\neq\emptyset$ ist. Außerdem soll gelten, dass
-
-    \begin{enumerate}[label=(\roman*)]
-        \item $\mu\of{\emptyset} = 0$
-        \item Für $A, B\in\mathcal{F}$ mit $A\cap B = \emptyset$ soll gelten $\mu\of{A \cup B} = \mu\of{A} + \mu\of{B}$
-        \item ??
-    \end{enumerate}
-
-    \newpage
+    \include{Kapitel/Einleitung}
 
 
     \section{[*] $\sigma$-Algebren und Maße}
@@ -288,10 +243,10 @@
     \thispagestyle{pagenumberonly}
 
     \begin{definition}[$\sigma$-Algebra]
-        Sei $E\neq \emptyset$ eine Menge. Eine $\sigma$-Algebra in $E$ ist ein System von Teilmengen $\mathcal{A} \subseteq \mathcal{P}\of{E}$ von $E$ mit folgenden Eingeschaften
+        Sei $E\neq \emptyset$ eine Menge. Eine $\sigma$-Algebra in $E$ ist ein System von Teilmengen $\mathcal{A} \subseteq \mathcal{P}\of{E}$ von $E$ mit folgenden Eigenschaften
         \begin{enumerate}[label=($\Sigma_{\arabic*}$)]
             \item $E\in\mathcal{A}$
-            \item $A\in\mathcal{A} \impl A^{\mathrm{C}} \coloneqq E \exclude A \in\mathcal{A}$
+            \item $A\in\mathcal{A} \impl A^{\mathrm{C}} \coloneqq E \setminus A \in\mathcal{A}$
             \item Für $n\in\N$ und $A_n\in\mathcal{A} \impl \bigcup_{n\in\N} A_n \in\mathcal{A}$. Das heißt $\mathcal{A}$ ist stabil unter (abzählbaren) Vereinigungen
         \end{enumerate}
         Eine Menge $A\in\mathcal{A}$ heißt messbar ($\mathcal{A}$-messbar).
@@ -303,7 +258,7 @@
             \item $\emptyset\in\mathcal{A}$
             \item $A, B\in\mathcal{A} \impl \pair{A\cup B} \in\mathcal{A}$ (das heißt $\mathcal{A}$ ist auch stabil unter endlichen Vereinigungen)
             \item Für eine Folge von Mengen in der Algebra $\pair{A_n}_n \subseteq \mathcal{A}$ gilt $\bigcap_{n=1}^{\infty} A_n \in\mathcal{A}$
-            \item $A, B\in\mathcal{A} \impl A \exclude B = A \cap \comp{B} \in \mathcal{A}$
+            \item $A, B\in\mathcal{A} \impl A \setminus B = A \cap \comp{B} \in \mathcal{A}$
         \end{enumerate}
 
         \begin{proof}
@@ -315,7 +270,7 @@
                     A \cup B &= \bigcup_{n\in\N}^{\infty} A_n \in \mathcal{A}
                 \end{align*}
                 \item $A_n \in \mathcal{A} \impl \comp{\pair{A_n}} \in \mathcal{A} \impl \bigcup_{n=1}^{\infty} \comp{\pair{A_n}} \in \mathcal{A} \impl \comp{\pair{\comp{\pair{\bigcup_{n=1}^{\infty} A_n}}}} \in \mathcal{A} \impl \bigcup_{n=1}^{\infty} A_n\in\mathcal{A}$
-                \item $A\exclude B = A \cap \comp{B} = A \cap \comp{B} \cap E \cap E \cap \dots$. Dann gilt nach (iii), dass $A \exclude B \in\mathcal{A}$
+                \item $A\setminus B = A \cap \comp{B} = A \cap \comp{B} \cap E \cap E \cap \dots$. Dann gilt nach (iii), dass $A \setminus B \in\mathcal{A}$
             \end{enumerate}
         \end{proof}
     \end{lemma}
@@ -463,7 +418,7 @@
         \begin{enumerate}[label=(\roman*)]
             \item $A \cap B = \emptyset \impl \mu\of{A \cup B} = \mu\of{A} + \mu\of{B}$\hfill (Additivität)
             \item $A \subseteq B \impl \mu\of{A} \leq \mu\of{B}$\hfill (Monotonie)
-            \item $A \subseteq B$ und $\mu\of{A} < \infty$ $\impl \mu\of{B\exclude A} = \mu\of{B} - \mu\of{A}$
+            \item $A \subseteq B$ und $\mu\of{A} < \infty$ $\impl \mu\of{B\setminus A} = \mu\of{B} - \mu\of{A}$
             \item $\mu\of{A\cup B} + \mu\of{A \cap B} = \mu\of{A} + \mu\of{B}$\hfill (Starke Additivität)
             \item $\mu\of{A \cup B} \leq \mu\of{A} + \mu\of{B}$\hfill (Subadditivität)
             \item $(A_n)_n\nearrow A \impl \displaystyle\mu\of{A} = \sup_{n\in\N} \mu\of{A_n} = \lim_{n\toinf} \mu\of{A_n}$\hfill (Stetigkeit von unten)
@@ -479,15 +434,15 @@
                     A \dot\cup B &= \dot\bigcup_{n\in\N} A_n\\
                     \impl \mu\of{A\dot\cup B} &= \sum_{n=1}^{\infty} \mu\of{A_n} = \mu\of{A_1} + \mu\of{A_2} = \mu\of{A} + \mu\of{B}
                 \end{align*}
-                \item Sei $A \subseteq B$, dann folgt $B = A \dot\cup \pair{B\exclude A}$. Mit (i) folgt
+                \item Sei $A \subseteq B$, dann folgt $B = A \dot\cup \pair{B\setminus A}$. Mit (i) folgt
                 \begin{align*}
-                    \mu\of{B} &= \mu\of{A \dot\cup \pair{B\exclude A}} = \mu\of{A} + \mu\of{B\exclude A} \geq \mu\of{A}
+                    \mu\of{B} &= \mu\of{A \dot\cup \pair{B\setminus A}} = \mu\of{A} + \mu\of{B\setminus A} \geq \mu\of{A}
                 \end{align*}
-                \item $\mu\of{B} = \mu\of{A} + \mu\of{B\exclude A}$. Dann folgt $\mu\of{B\exclude A} = \mu\of{B} - \mu\of{A}$, falls $\mu\of{A} < \infty$.
-                \item Es gilt $A \cup B = A \dot\cup \pair{B\exclude\pair{A \cap B}}$. Dann folgt
+                \item $\mu\of{B} = \mu\of{A} + \mu\of{B\setminus A}$. Dann folgt $\mu\of{B\setminus A} = \mu\of{B} - \mu\of{A}$, falls $\mu\of{A} < \infty$.
+                \item Es gilt $A \cup B = A \dot\cup \pair{B\setminus\pair{A \cap B}}$. Dann folgt
                 \begin{align*}
-                    \mu\of{A \cup B} + \mu\of{A\cap B} &= \mu\of{A\dot\cup\pair{B\exclude\pair{A\cap B}}} + \mu\of{A \cap B}\\
-                    &= \mu\of{A} + \mu\of{B\exclude \pair{A\cap B}} + \mu\of{A \cap B}\\
+                    \mu\of{A \cup B} + \mu\of{A\cap B} &= \mu\of{A\dot\cup\pair{B\setminus\pair{A\cap B}}} + \mu\of{A \cap B}\\
+                    &= \mu\of{A} + \mu\of{B\setminus \pair{A\cap B}} + \mu\of{A \cap B}\\
                     &= \mu\of{A} + \mu\of{B} - \mu\of{A \cap B} + \mu\of{A \cap B}\\
                     &= \mu\of{A} + \mu\of{B}
                 \end{align*}
@@ -499,9 +454,9 @@
                     &= \lim_{n\toinf} \sum_{j=1}^{n} \mu\of{F_j} = \lim_{n\toinf} \mu\of{\bigcup_{j=1}^{n} F_j}\\
                     &= \lim_{n\toinf} \mu\of{A_n} = \sup_{n\in\N} \mu\of{A_n}
                 \end{align*}
-                \item Sei $(B_n)_n \searrow B$ mit $\mu\of{B_1} < \infty$. Wir definieren $A_n \coloneqq B_1 \exclude B_n \nearrow B_1 \exclude B$ wachsend. Dann gilt nach (vi)
+                \item Sei $(B_n)_n \searrow B$ mit $\mu\of{B_1} < \infty$. Wir definieren $A_n \coloneqq B_1 \setminus B_n \nearrow B_1 \setminus B$ wachsend. Dann gilt nach (vi)
                 \begin{align*}
-                    \mu\of{B_1 \exclude B} &= \lim_{n\toinf} \mu\of{B_1 \exclude B_n}\\
+                    \mu\of{B_1 \setminus B} &= \lim_{n\toinf} \mu\of{B_1 \setminus B_n}\\
                     \mu\of{B_1} - \mu\of{B} &= \lim_{n\toinf} \pair{\mu\of{B_1} - \mu\of{B_n}} = \mu\of{B} - \lim_{n\toinf} \mu\of{B_n}\\
                     \impl \mu\of{B} &= \lim_{n\toinf} \mu\of{B_n} = \inf_{n\in\N} \mu\of{B_n}
                 \end{align*}
@@ -557,10 +512,10 @@
         Ist ferner $X\in R$, dann heißt $R$ Algebra.
     \end{bemerkung}
 
-    \begin{bemerkung}[Eingeschaften von Mengenringen]
+    \begin{bemerkung}[Eigenschaften von Mengenringen]
         Es sei $R$ ein Mengenring. Dann gilt
         \begin{enumerate}
-            \item Nach der Mengengleichheit $A \cap B = A \exclude \pair{A \exclude B}$ enthält $R$ auch Schnitte.
+            \item Nach der Mengengleichheit $A \cap B = A \setminus \pair{A \setminus B}$ enthält $R$ auch Schnitte.
             \item Wir definieren die symmetrische Mengendifferenz $\Delta: R \times R \to R,~\pair{A, B} \mapsto \pair{A\setminus B} \cup \pair{B\setminus A}$. Dann definiert $\pair{R, \Delta, \cap}$ einen Ring im Sinne der Algebra, wobei $\Delta$ der \anf{Addition} und $\cap$ der \anf{Multiplikation} entspricht.
         \end{enumerate}
     \end{bemerkung}
