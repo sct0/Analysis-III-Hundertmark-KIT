@@ -144,10 +144,14 @@
 \newcommand{\mC}{\mathcal{C}}
 \newcommand{\mL}{\mathcal{L}}
 \newcommand{\mJ}{\mathcal{J}}
+\newcommand{\mP}{\mathcal{P}}
 \newcommand{\mPC}{\mathcal{PC}}
 \newcommand{\mM}{\mathcal{M}}
 \newcommand{\mS}{\mathcal{S}}
 \newcommand{\mA}{\mathcal{A}}
+\newcommand{\mD}{\mathcal{D}}
+\newcommand{\mG}{\mathcal{G}}
+\newcommand{\mQ}{\mathcal{Q}}
 
 % Spezielle Symbole
 \NewDocumentCommand{\Tau}{e{^_}}{
@@ -285,7 +289,7 @@
 
     \begin{definition}[$\sigma$-Algebra]
         Sei $E\neq \emptyset$ eine Menge. Eine $\sigma$-Algebra in $E$ ist ein System von Teilmengen $\mathcal{A} \subseteq \mathcal{P}\of{E}$ von $E$ mit folgenden Eingeschaften
-        \begin{enumerate}[label=(\roman*)]
+        \begin{enumerate}[label=($\Sigma_{\arabic*}$)]
             \item $E\in\mathcal{A}$
             \item $A\in\mathcal{A} \impl A^{\mathrm{C}} \coloneqq E \exclude A \in\mathcal{A}$
             \item Für $n\in\N$ und $A_n\in\mathcal{A} \impl \bigcup_{n\in\N} A_n \in\mathcal{A}$. Das heißt $\mathcal{A}$ ist stabil unter (abzählbaren) Vereinigungen
@@ -333,10 +337,10 @@
 
         \begin{proof}[Beweis von (d)]
             Wir prüfen die Kriterien
-            \begin{enumerate}[label=(\roman*)]
+            \begin{enumerate}[label=($\Sigma_{\arabic*}$)]
                 \item $\comp{E} = \emptyset$ ist abzählbar $\impl E\in\mathcal{A}$
                 \item $A\in\mathcal{A} \equivalent A$ oder $\comp{A}$ ist abzählbar $\equivalent \comp{A}$ oder $\comp{\pair{\comp{A}}}$ ist abzählbar $\equivalent \comp{A} \in\mathcal{A}$
-                \item Sei $A_n \in\mathcal{A}$ für $n\in\N$. Wir unterscheiden ? Fälle\\
+                \item Sei $A_n \in\mathcal{A}$ für $n\in\N$. Wir unterscheiden 2 Fälle\\
                 \textsc{Fall 1}: Alle $A_n$ sind abzählbar. Dann ist auch $\bigcup_{n\in\N} A_n$ abzählbar.\\
                 \textsc{Fall 2}: Ein $A_j$ ist überabzählbar. Dann ist aber $\comp{\pair{A_j}}$ abzählbar. Das heißt $\bigcap_{n=1}^{\infty} \comp{A_n} \subseteq \comp{A_j}$ ist abzählbar. Dann ist $\comp{\pair{\bigcup_{n=1}^{\infty} A_n}} = \bigcap_{n=1}^{\infty} \comp{\pair{A_n}}$ abzählbar. Das heißt $\bigcup_{n=1} A_n \in\mathcal{A}$
             \end{enumerate}
@@ -541,6 +545,119 @@
             \end{cases}
         \end{align*}
     \end{beispiel}
+
+    \begin{bemerkung}[Ring und Algebra]
+        \marginnote{[28. Okt]}
+        Ein Mengensystem $R \subseteq\mathcal{P}\of{X}$ heißt Ring, wenn folgende Eigenschaften erfüllt sind
+        \begin{enumerate}[label=($\text{R}_{\arabic*}$)]
+            \item $\emptyset\in R$
+            \item $A, B\subseteq R \impl \pair{A \setminus B} \in R$
+            \item $A, B\subseteq R \impl \pair{A \cup B} \in R$
+        \end{enumerate}
+        Ist ferner $X\in R$, dann heißt $R$ Algebra.
+    \end{bemerkung}
+
+    \begin{bemerkung}[Eingeschaften von Mengenringen]
+        Es sei $R$ ein Mengenring. Dann gilt
+        \begin{enumerate}
+            \item Nach der Mengengleichheit $A \cap B = A \exclude \pair{A \exclude B}$ enthält $R$ auch Schnitte.
+            \item Wir definieren die symmetrische Mengendifferenz $\Delta: R \times R \to R,~\pair{A, B} \mapsto \pair{A\setminus B} \cup \pair{B\setminus A}$. Dann definiert $\pair{R, \Delta, \cap}$ einen Ring im Sinne der Algebra, wobei $\Delta$ der \anf{Addition} und $\cap$ der \anf{Multiplikation} entspricht.
+        \end{enumerate}
+    \end{bemerkung}
+
+    \newpage
+
+
+    \section{[*] Dynkinsysteme}
+    \imaginarysubsection{Dynkinsysteme}
+    \thispagestyle{pagenumberonly}
+    \begin{definition}[Dynkinsystem]
+        Ein Mengensystem $\mD \subseteq\mP\of{X}$ heißt Dynkinsystem, falls
+        \begin{enumerate}[label=($\text{D}_{\arabic*}$)]
+            \item $X\in\mD$
+            \item $D\in\mD \impl \comp{D}\in\mD$
+            \item Für eine paarweise disjunkte Mengenfolge $(D_n)_n \subseteq \mD \impl \dot\bigcup_{n\in\N} D_n \in\mD$
+        \end{enumerate}
+    \end{definition}
+
+    \begin{beispiel}
+        \theoremescape
+        \begin{enumerate}
+            \item Jede $\sigma$-Algebra ist ein Dynkinsystem.
+            \item Sei $X$ eine $2n$-elementige Menge. Dann ist $\mD \coloneqq \set{A \subseteq X: A\text{ hat eine gerade Anzahl an Elementen}}$ ein Dynkinsystem, aber keine $\sigma$-Algebra.
+        \end{enumerate}
+    \end{beispiel}
+
+    \begin{lemma}
+        \label{lemma:dynkin-sigma-equiv}
+        Sei $I$ eine beliebige Indexmenge und $(\mD_j)_{j\in I}$ eine Familie von Dynkinsystemen in $X$, dann ist $\displaystyle\bigcap_{j\in I} \mD_j$ wieder ein Dynkinsystem.
+        \begin{proof}
+        (Übung)
+        \end{proof}
+    \end{lemma}
+
+    \begin{satz} % Satz 4
+        Sei $\mG \subseteq\mP\of{X}$. Dann existiert das kleinste Dynkinsystem $\delta\of{\mG}$, welches $\mG$ enthält. Wir nennen $\delta\of{\mG}$ das von $\mG$ erzeugte Dynkinsystem.
+        \begin{proof}
+            $\mP\of{X}$ ist ein Dynkinsystem. Wir definieren also $I = \set{\mD\subseteq\mP\of{X}: \mD\text{ ist ein Dynkinsystem und }\mG\subseteq\mD} \neq \emptyset$. Anschließend setzen wir analog zum Schnitt über $\sigma$-Algebren
+            \begin{align*}
+                \delta\of{\mG} &\coloneqq \bigcap_{\mD\in I} \mD\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{definition}
+        Sei $\mD\subseteq\mP\of{X}$. Wir nennen $\mD$ $\cap$-stabil, falls $A, B \in\mD \impl \pair{A \cap B} \in\mD$. Analog dazu nennen wir $\mD$ $\cup$-stabil, falls $A, B \in\mD \impl \pair{A \cup B} \in\mD$.
+    \end{definition}
+
+    Frage: Wann ist ein Dynkinsystem eine $\sigma$-Algebra?
+
+    \begin{lemma}
+        Sei $\mD$ ein Dynkinsystem. Dann gilt $\mD$ ist genau dann eine $\sigma$-Algebra, wenn $A, B \in \mD \impl \pair{A \cap B} \in\mD$
+
+        \begin{proof}
+            \theoremescape
+            \anf{$\impl$} Sei $\mD$ eine $\sigma$-Algebra. Dann ist $\mD$ ein Dynkinsystem. Seien $A, B\in\mD$. Dann folgt $\comp{A}, \comp{B} \in \mD \impl A \cap B = \comp{\pair{\comp{A} \cup \comp{B}}} \in \mD$.\\[0.5\baselineskip]
+            \anf{$\Leftarrow$} Zu zeigen ist Eigenschaft ($\Sigma_3$). Sei $(D_n)_n \in\mD$ eine Mengenfolge. Wir definieren $D_0' \coloneqq \emptyset$ und $D_n' \coloneqq D_1 \cup D_2 \cup \dots \cup D_n$. Dann ist $(D_n)_n$ eine aufsteigende Folge und es gilt
+            \begin{align*}
+                \bigcup_{n\in\N} D_n = \bigcup_{n\in\N} D_n' &= \dot\bigcup_{n\in\N} \pair{D_n' \setminus D_{n-1}'}
+                \intertext{Außerdem ist}
+                \dot\bigcup_{n\in\N} &\pair{D_n' \setminus D_{n-1}'} \in \mD
+                \intertext{falls $\pair{D_n' \setminus D_{n-1}'} \in \mD~\forall n\in\N$. Und es gilt $D_n' \setminus D_{n-1}' = \pair{D_n' \cap \comp{\pair{D_{n-1}'}}}\in \mD$, falls $D_n' \in \mD~\forall n\in\N_0$. Wir haben also unsere Behauptung gezeigt, wenn wir gezeigt haben, dass $\mD$ $\cup$-stabil ist. Außerdem gilt}
+                A \cup B &= \comp{\pair{\comp{A} \cap \comp{B}}} \in \mD
+            \end{align*}
+            Damit ist ($\Sigma_3$) gezeigt.
+        \end{proof}
+    \end{lemma}
+
+    \begin{satz} % Satz 6
+        Sei $X$ eine beliebige Menge und $\mG\subseteq\mP\of{X}$. Dann folgt aus $\mG$ ist $\cap$-stabil, dass $\delta\of{\mG}$ $\cap$-stabil ist. Und damit ist auch $\delta\of{\mG}$ eine $\sigma$-Algebra, das heißt in diesem Fall gilt $\sigma\of{\mG} = \delta\of{\mG}$(\footnote{Das liegt daran, dass $\delta\of{\mG} \subseteq \delta\of{\sigma\of{\mG}} = \sigma\of{\mG}$ und $\sigma\of{\mG}$ die kleinste $\sigma$-Algebra ist, die $\mG$ enthält.}).
+        \begin{proof}
+            Wir nehmen ein beliebiges $D \in \delta\of{\mG}$ und definieren
+            \begin{align*}
+                \mD_D \coloneqq \set{\mQ\in\mP\of{X}: \mQ \cap D \in \delta\of{\mG}}
+            \end{align*}
+            Behauptung: $\mD_D$ ist ein Dynkinsystem. Stimmt diese Behauptung, dann können wir folgendermaßen folgern: Da $\mG$ $\cap$-stabil ist, gilt
+            \begin{align*}
+                \forall G, D\in \mG: G \cap D\in \mG \subseteq \delta\of{\mG}\\
+                \equivalent \forall D\in\mG: \mG \subseteq\mD_D\\
+                \impl \forall D\in\mG: \delta\of{\mG}\subseteq \delta\of{\mD_D} \annot{=}{(Beh.)} \mD_D\\
+                \equivalent \forall D\in\mG\fa G\in\delta\of{\mG}: G \cap D \in\delta\of{\mG}
+                \intertext{Aus Symmetriegründen gilt dann}
+                \forall G\in\delta\of{\mG}\fa D\in \mG: D \cap G = G\cap D \in \delta\of{\mG}\\
+                \equivalent \forall G\in \delta\of{\mG}: \mG \subseteq \mD_{G}\\
+                \impl \delta\of{\mG} \subseteq \delta\of{\D_G} = \D_g~\forall G\in\delta\of{\mG}\\
+                \equivalent \forall D, G\in\delta\of{\mG}: D \cap G\in \delta\of{\mG}
+            \end{align*}
+            Das heißt $\delta\of{\mG}$ ist $\sigma$-stabil.\\[.5\baselineskip]
+            Wir zeigen noch die Behauptung:
+            \begin{enumerate}[label=($\text{D}_\arabic*$)]
+                \item Sei $D \in\mG$ und $X\in\mD_D$. Dann ist $X\cap D = D \in \mD_D$.
+                \item Sei $Q\in\mD_D$. Dann ist auch $\comp{Q}\in\mD_D$, denn $\comp{Q} \cap D = \pair{\comp{Q} \cup \comp{D}}\cap D = \comp{\pair{Q \cap D}} \cap D = \comp{\pair{\pair{G \cap D} \dot\cup \comp{D}}} \in\delta\of{\mG}$.
+                \item (Nächste Vorlesung)
+            \end{enumerate}
+        \end{proof}
+    \end{satz}
 
 
 \end{document}
