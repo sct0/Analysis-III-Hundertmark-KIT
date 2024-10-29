@@ -247,7 +247,7 @@
         \begin{enumerate}[label=($\Sigma_{\arabic*}$)]
             \item $E\in\mathcal{A}$
             \item $A\in\mathcal{A} \impl A^{\mathrm{C}} \coloneqq E \setminus A \in\mathcal{A}$
-            \item Für $n\in\N$ und $A_n\in\mathcal{A} \impl \bigcup_{n\in\N} A_n \in\mathcal{A}$. Das heißt $\mathcal{A}$ ist stabil unter (abzählbaren) Vereinigungen
+            \item Für $(A_n)_n\subseteq\mathcal{A}$ gilt $\dsty\bigcup_{n\in\N} A_n \in\mathcal{A}$. Das heißt $\mathcal{A}$ ist stabil unter (abzählbaren) Vereinigungen
         \end{enumerate}
         Eine Menge $A\in\mathcal{A}$ heißt messbar ($\mathcal{A}$-messbar).
     \end{definition}
@@ -257,20 +257,20 @@
         \begin{enumerate}[label=(\roman*)]
             \item $\emptyset\in\mathcal{A}$
             \item $A, B\in\mathcal{A} \impl \pair{A\cup B} \in\mathcal{A}$ (das heißt $\mathcal{A}$ ist auch stabil unter endlichen Vereinigungen)
-            \item Für eine Folge von Mengen in der Algebra $\pair{A_n}_n \subseteq \mathcal{A}$ gilt $\bigcap_{n=1}^{\infty} A_n \in\mathcal{A}$
+            \item Für $(A_n)_n \subseteq \mathcal{A}$ gilt $\dsty\bigcap_{n\in\N} A_n \in\mathcal{A}$
             \item $A, B\in\mathcal{A} \impl A \setminus B = A \cap \comp{B} \in \mathcal{A}$
         \end{enumerate}
 
         \begin{proof}
             \theoremescape
             \begin{enumerate}[label=(\roman*)]
-                \item $E\in\mathcal{A} \impl \emptyset = \comp{E} \in\mathcal{A}$
-                \item Wir definieren $A_1 \coloneqq A$, $A_2 \coloneqq B$ und $A_i \coloneqq \emptyset$ für $i\geq 3$. Dann gilt
+                \item $E\in\mathcal{A} \overset{(\Sigma_2)}{\impl} \emptyset = \comp{E} \in\mathcal{A}$
+                \item Wir definieren $A_1 \coloneqq A$, $A_2 \coloneqq B$ und $A_i \coloneqq \emptyset$ für $i\geq 3$. Dann gilt gilt ($\Sigma_3$)
                 \begin{align*}
-                    A \cup B &= \bigcup_{n\in\N}^{\infty} A_n \in \mathcal{A}
+                    A \cup B &= \bigcup_{n\in\N} A_n \in \mathcal{A}
                 \end{align*}
-                \item $A_n \in \mathcal{A} \impl \comp{\pair{A_n}} \in \mathcal{A} \impl \bigcup_{n=1}^{\infty} \comp{\pair{A_n}} \in \mathcal{A} \impl \comp{\pair{\comp{\pair{\bigcup_{n=1}^{\infty} A_n}}}} \in \mathcal{A} \impl \bigcup_{n=1}^{\infty} A_n\in\mathcal{A}$
-                \item $A\setminus B = A \cap \comp{B} = A \cap \comp{B} \cap E \cap E \cap \dots$. Dann gilt nach (iii), dass $A \setminus B \in\mathcal{A}$
+                \item $A_n \in \mathcal{A} \impl \comp{\pair{A_n}} \in \mathcal{A} \impl \dsty\bigcup_{n\in\N} \comp{\pair{A_n}} \in \mathcal{A} \impl \comp{\pair{\comp{\pair{\bigcup_{n\in\N} A_n}}}} \in \mathcal{A} \impl \bigcap_{n\in\N} A_n\in\mathcal{A}$
+                \item $A\setminus B = A \cap \comp{B} = A \cap \comp{B} \cap E \cap E \cap \cdots$. Dann gilt nach (iii), dass $A \setminus B \in\mathcal{A}$\qedhere
             \end{enumerate}
         \end{proof}
     \end{lemma}
@@ -278,7 +278,7 @@
     \begin{beispiel}
         Wir betrachten einige Beispiele für $\sigma$-Algebren
         \begin{enumerate}[label=(\alph*)]
-            \item Für eine Mengen $E$ ist die Potenzmenge selber $\mathcal{P}\of{E}$ nach Definition immer eine $\sigma$-Algebra über $E$.
+            \item Für eine Mengen $E$ ist die Potenzmenge $\mathcal{P}\of{E}$ selber nach Definition immer eine $\sigma$-Algebra über $E$.
             \item $\set{\emptyset, E}$ ist die kleinste $\sigma$-Algebra in $E$.
             \item Für $A \subseteq E$ gilt $\mathcal{A} \coloneqq \set{\emptyset, A, \comp{A}, E}$ ist die kleinste $\sigma$-Algebra, die $A$ enthält.
             \item Sei $E$ überabzählbar. Dann ist $\mathcal{A} \coloneqq \set{A\subseteq E: A \text{ oder }\comp{A}\text{ ist abzählbar}}$ eine $\sigma$-Algebra.
@@ -297,15 +297,15 @@
                 \item $A\in\mathcal{A} \equivalent A$ oder $\comp{A}$ ist abzählbar $\equivalent \comp{A}$ oder $\comp{\pair{\comp{A}}}$ ist abzählbar $\equivalent \comp{A} \in\mathcal{A}$
                 \item Sei $A_n \in\mathcal{A}$ für $n\in\N$. Wir unterscheiden 2 Fälle\\
                 \textsc{Fall 1}: Alle $A_n$ sind abzählbar. Dann ist auch $\bigcup_{n\in\N} A_n$ abzählbar.\\
-                \textsc{Fall 2}: Ein $A_j$ ist überabzählbar. Dann ist aber $\comp{\pair{A_j}}$ abzählbar. Das heißt $\bigcap_{n=1}^{\infty} \comp{A_n} \subseteq \comp{A_j}$ ist abzählbar. Dann ist $\comp{\pair{\bigcup_{n=1}^{\infty} A_n}} = \bigcap_{n=1}^{\infty} \comp{\pair{A_n}}$ abzählbar. Das heißt $\bigcup_{n=1} A_n \in\mathcal{A}$
+                \textsc{Fall 2}: Ein $A_j$ ist überabzählbar. Dann ist aber $\comp{\pair{A_j}}$ abzählbar. Das heißt $\bigcap_{n\in\N} \comp{\pair{A_n}} \subseteq \comp{\pair{A_j}}$ ist abzählbar. Dann ist $\comp{\pair{\bigcup_{n=1}^{\infty} A_n}} = \bigcap_{n\in\N} \comp{\pair{A_n}}$ abzählbar. Das heißt $\bigcup_{n\in\N} A_n \in\mathcal{A}$.
             \end{enumerate}
         \end{proof}
     \end{beispiel}
 
     \begin{notation}
-        Seien $I$ eine beliebige Menge und $A_j$, $j\in I$ eine beliebige Familie von Mengensystemen in $E$. Dann ist
+        Seien $I$ eine beliebige Menge und $(A_j)_{j\in I}$ eine beliebige Familie von Mengensystemen in $E$. Dann ist
         \begin{align*}
-            \bigcap_{j\in I} \mathcal{A}_j \coloneqq \set{A: A \subseteq \mathcal{A}_j \forall j\in I}
+            \bigcap_{j\in I} \mathcal{A}_j \coloneqq \set{A: A \subseteq \mathcal{A}_j~\forall j\in I}
         \end{align*}
         der Durchschnitt der $\mathcal{A}_j$.
     \end{notation}
