@@ -1,0 +1,308 @@
+\section{$\sigma$-Algebren und Maße}
+
+\subsection{$\sigma$-Algebren}
+\thispagestyle{pagenumberonly}
+
+\begin{definition}[$\sigma$-Algebra]
+    Sei $E\neq \emptyset$ eine Menge. Eine $\sigma$-Algebra in $E$ ist ein System von Teilmengen $\mathcal{A} \subseteq \mathcal{P}\of{E}$ von $E$ mit folgenden Eigenschaften
+    \begin{enumerate}[label=($\Sigma_{\arabic*}$)]
+        \item $E\in\mathcal{A}$
+        \item $A\in\mathcal{A} \impl A^{\mathrm{C}} \coloneqq E \setminus A \in\mathcal{A}$
+        \item Für $(A_n)_n\subseteq\mathcal{A}$ gilt $\dsty\bigcup_{n\in\N} A_n \in\mathcal{A}$. Das heißt $\mathcal{A}$ ist stabil unter (abzählbaren) Vereinigungen
+    \end{enumerate}
+    Eine Menge $A\in\mathcal{A}$ heißt messbar ($\mathcal{A}$-messbar).
+\end{definition}
+
+\begin{lemma}[Eigenschaften von $\sigma$-Algebren]
+    Sei $\mathcal{A}$ eine $\sigma$-Algebra in $E$. Dann gilt
+    \begin{enumerate}[label=(\roman*)]
+        \item $\emptyset\in\mathcal{A}$
+        \item $A, B\in\mathcal{A} \impl \pair{A\cup B} \in\mathcal{A}$ (das heißt $\mathcal{A}$ ist auch stabil unter endlichen Vereinigungen)
+        \item Für $(A_n)_n \subseteq \mathcal{A}$ gilt $\dsty\bigcap_{n\in\N} A_n \in\mathcal{A}$
+        \item $A, B\in\mathcal{A} \impl A \setminus B = A \cap \comp{B} \in \mathcal{A}$
+    \end{enumerate}
+
+    \begin{proof}
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item $E\in\mathcal{A} \overset{(\Sigma_2)}{\impl} \emptyset = \comp{E} \in\mathcal{A}$
+            \item Wir definieren $A_1 \coloneqq A$, $A_2 \coloneqq B$ und $A_i \coloneqq \emptyset$ für $i\geq 3$. Dann gilt gilt ($\Sigma_3$)
+            \begin{align*}
+                A \cup B &= \bigcup_{n\in\N} A_n \in \mathcal{A}
+            \end{align*}
+            \item $A_n \in \mathcal{A} \impl \comp{\pair{A_n}} \in \mathcal{A} \impl \dsty\bigcup_{n\in\N} \comp{\pair{A_n}} \in \mathcal{A} \impl \comp{\pair{\comp{\pair{\bigcup_{n\in\N} A_n}}}} \in \mathcal{A} \impl \bigcap_{n\in\N} A_n\in\mathcal{A}$
+            \item $A\setminus B = A \cap \comp{B} = A \cap \comp{B} \cap E \cap E \cap \cdots$. Dann gilt nach (iii), dass $A \setminus B \in\mathcal{A}$\qedhere
+        \end{enumerate}
+    \end{proof}
+\end{lemma}
+
+\begin{beispiel}
+    \label{beispiel:sigma-algebren}
+    Wir betrachten einige Beispiele für $\sigma$-Algebren
+    \begin{enumerate}[label=(\alph*)]
+        \item Für eine Mengen $E$ ist die Potenzmenge $\mathcal{P}\of{E}$ selber nach Definition immer eine $\sigma$-Algebra über $E$.
+        \item $\set{\emptyset, E}$ ist die kleinste $\sigma$-Algebra in $E$.
+        \item Für $A \subseteq E$ gilt $\mathcal{A} \coloneqq \set{\emptyset, A, \comp{A}, E}$ ist die kleinste $\sigma$-Algebra, die $A$ enthält.
+        \item Sei $E$ überabzählbar. Dann ist $\mathcal{A} \coloneqq \set{A\subseteq E: A \text{ oder }\comp{A}\text{ ist abzählbar}}$ eine $\sigma$-Algebra.
+        \item Sei $\mathcal{A}$ eine $\sigma$-Algebra in $E$. Für $F\subseteq E$ beliebig ist $\mathcal{A}_F \coloneqq \set{A \cap F: A\in\mathcal{A}}$ die Spur-$\sigma$-Algebra von $F$.
+        \item Seien $E, E'$ nicht-leere Mengen, $f: E\to E'$ eine Funktion und $\mathcal{A}'$ eine $\sigma$-Algebra in $E'$. Dann ist auch
+        \begin{align*}
+            \mathcal{A} \coloneqq \set{f^{-1}\of{A'}: A'\in\mathcal{A}'}
+        \end{align*}
+        eine $\sigma$-Algebra.
+    \end{enumerate}
+
+    \begin{proof}[Beweis von (d)]
+        Wir prüfen die Kriterien
+        \begin{enumerate}[label=($\Sigma_{\arabic*}$)]
+            \item $\comp{E} = \emptyset$ ist abzählbar $\impl E\in\mathcal{A}$
+            \item $A\in\mathcal{A} \equivalent A$ oder $\comp{A}$ ist abzählbar $\equivalent \comp{A}$ oder $\comp{\pair{\comp{A}}}$ ist abzählbar $\equivalent \comp{A} \in\mathcal{A}$
+            \item Sei $A_n \in\mathcal{A}$ für $n\in\N$. Wir unterscheiden 2 Fälle\\
+            \textsc{Fall 1}: Alle $A_n$ sind abzählbar. Dann ist auch $\bigcup_{n\in\N} A_n$ abzählbar.\\
+            \textsc{Fall 2}: Ein $A_j$ ist überabzählbar. Dann ist aber $\comp{\pair{A_j}}$ abzählbar $\impl\bigcap_{n\in\N} \comp{\pair{A_n}} \subseteq \comp{\pair{A_j}}$ ist abzählbar. Dann ist $\comp{\pair{\bigcup_{n=1}^{\infty} A_n}} = \bigcap_{n\in\N} \comp{\pair{A_n}}$ abzählbar. Das heißt $\bigcup_{n\in\N} A_n \in\mathcal{A}$.\qedhere
+        \end{enumerate}
+    \end{proof}
+\end{beispiel}
+
+\begin{notation}[Durchschnitt]
+    Seien $I$ eine beliebige Menge und $(\mA_j)_{j\in I} \subseteq\mathcal{P}\of{E}$ eine beliebige Familie von Mengensystemen in $E$. Dann ist
+    \begin{align*}
+        \bigcap_{j\in I} \mathcal{A}_j \coloneqq \set{A: A \subseteq \mathcal{A}_j~\forall j\in I}
+    \end{align*}
+    der Durchschnitt der $\mathcal{A}_j$.
+\end{notation}
+
+\begin{satz} % Satz 4
+    \label{satz:schnitt-sig-algebra}
+    Sei $I$ eine beliebige Menge und $(\mA_j)_{j\in I}$ eine Familie von $\sigma$-Algebren in $E$. Dann gilt
+    \begin{align*}
+        \bigcap_{j\in I} \mathcal{A}_j
+    \end{align*}
+    ist wieder eine $\sigma$-Algebra.
+    \begin{proof}
+        \theoremescape
+        \begin{enumerate}[label=($\Sigma_{\arabic*}$)]
+            \item $E\in\mathcal{A}_j~\forall j\in I \impl E \subseteq \bigcap_{j\in I} \mathcal{A}_j$
+            \item $A \in \bigcap_{j\in I} \mathcal{A}_j \equivalent A \in \mathcal{A}_j~\forall j\in I$. Daraus folgt $\comp{A} \in \mathcal{A}_j~\forall j\in I \impl \comp{A} \in \bigcap_{j\in I}\mathcal{A}_j$
+            \item Sei $A_n \in \bigcap_{j\in I} \mathcal{A}_j$. Dann gilt $A_n \in \mathcal{A}_j~\forall j\in I \impl \bigcup_{n\in\N} A_n \in \mathcal{A}_j~\forall j\in I$\qedhere
+        \end{enumerate}
+    \end{proof}
+\end{satz}
+
+\begin{satz} % Satz 5
+    Sei $\zeta \subseteq \mathcal{P}\of{E}$ für $E$ nicht-leer ein System von Teilmengen von $E$. Dann existiert eine kleinste $\sigma$-Algebra $\sigma\of{E}$ in $E$, welche $\zeta$ enthält. Das heißt
+    \begin{enumerate}[label=(\alph*)]
+        \item $\sigma\of{\zeta}$ ist eine $\sigma$-Algebra in $E$ und
+        \item Für eine $\sigma$-Algebra $\mathcal{A}$ in $E$ mit $\zeta\subseteq A$ folgt $\sigma\of{\zeta} \subseteq \mathcal{A}$
+    \end{enumerate}
+    Wir nennen $\sigma\of{\zeta}$ in diesem Fall die von $\zeta$ erzeugte $\sigma$-Algebra und $\zeta$ den Erzeuger von $\sigma\of{\zeta}$.
+    \begin{proof}
+        Wir definieren $I \coloneqq \set{\mathcal{A}: \mathcal{A} \text{ ist $\sigma$-Algebra und } \zeta\subseteq\mathcal{A}}$ die Menge aller $\sigma$-Algebren, die $\zeta$ enthalten. Dabei gilt $I$ nicht-leer, da $\mathcal{P}\of{E}\in I$. Damit gilt nach Satz~\ref{satz:schnitt-sig-algebra}, dass
+        \begin{align*}
+            \sigma\of{\zeta} \coloneqq \bigcap_{\mathcal{A}\in I} \mathcal{A}
+        \end{align*}
+        eine $\sigma$-Algebra ist. Dabei ist $\zeta \subseteq \sigma\of{\zeta}$ nach Forderung an $I$. Und nach unserer Konstruktion ist auch Anforderung (b) erfüllt.
+    \end{proof}
+\end{satz}
+
+\begin{beispiel}
+    Sei $\zeta \coloneqq \set{A}$. Dann ist $\set{\emptyset, A, \comp{A}, E}$ die von $\zeta$ erzeugte $\sigma$-Algebra.
+\end{beispiel}
+
+\begin{definition}
+    Sei $\mathcal{O}_d$ das System der offenen Mengen im $\R^d$. Dann definieren wir die \textit{Borel-$\sigma$-Algebra}
+    \begin{align*}
+        \mathcal{B}_d = \mathcal{B}\of{\R^d} \coloneqq \sigma\of{\mathcal{O}_d}
+    \end{align*}
+\end{definition}
+
+\subsection{Maße und Prämaße}
+
+\begin{mdframed}
+    \centering
+    Sei in diesem Teilkapitel stets $X$ eine Menge.
+\end{mdframed}
+
+\begin{notation}[Disjunkte Vereinigung]
+    \marginnote{[25. Okt]}
+    Seien $A,B$ Mengen mit $A\cap B = \emptyset$. Dann schreiben wir $A \sqcup B \coloneqq A \cup B$ als disjunkte Vereinigung von $A$ und $B$.
+\end{notation}
+
+\begin{definition}[Maß]
+    Ein (positives) Maß $\mu$ auf $X$ ist eine Funktion $\mu: \mA \to\interv{0,\infty}$ mit
+    \begin{enumerate}[label=($\text{M}_{\arabic*}$)]
+        \setcounter{enumi}{-1}
+        \item $\mA$ ist eine $\sigma$-Algebra.
+        \item $\mu\of{\emptyset} = 0$
+        \item Sei $(A_n)_{n\in\N}\subseteq\mA$ eine Folge paarweise disjunkter Mengen. Dann folgt
+        \begin{align*}
+            \mu\of{\bigsqcup_{n\in\N} A_n} &= \sum_{n\in\N}^{} \mu\of{A_n}
+        \end{align*}
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Prämaß]
+    Ist $\mA\subseteq\mathcal{P}\of{X}$ nicht unbedingt eine $\sigma$-Algebra und $\mu: \mA\to\interv{0,\infty}$ eine Funktion, so heißt $\mu$ Prämaß, falls
+    \begin{enumerate}[label=($\text{PM}_{\arabic*}$)]
+        \item $\mu\of{\emptyset} = 0$ (das setzt also auch voraus, dass $\emptyset\in\mA$)
+        \item Sind $(A_n)_{n}\subseteq\mA$ paarweise disjunkt und $\pair{\bigsqcup_{n\in\N} A_n}\in\mA$, dann folgt
+        \begin{align*}
+            \mu\of{\bigsqcup_{n\in\N} A_n} &= \sum_{n\in\N}^{} \mu\of{A_n}
+        \end{align*}
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Wachsende und fallende Teilmengenfolgen]
+    Sei $(A_n)_n$ eine Folge von Teilmengen von $X$. Dann nennen wir $(A_n)_n$
+    \begin{enumerate}[label=-]
+        \item wachsend, falls $A_n \subseteq A_{n+1}~\forall n\in\N$
+        \item fallend, falls $A_{n+1} \subseteq A_{n}~\forall n\in\N$
+    \end{enumerate}
+\end{definition}
+
+\begin{notation}
+    \theoremescape
+    \begin{enumerate}
+        \item Für eine wachsende Teilmengenfolge $(A_n)_n$ schreiben wir $A_n \nearrow A$, falls $\bigcup_{n=1}^{\infty} A_n = A$.
+        \item Für eine fallende Teilmengenfolge $(A_n)_n$ schreiben wir $A_n \searrow A$, falls $\bigcap_{n=1}^{\infty} A_n = A$.
+    \end{enumerate}
+\end{notation}
+
+\begin{definition}[Messraum und Maßraum]
+    Sei $X$ eine Menge, $\mA$ eine $\sigma$-Algebra und $\mu: \mA\to\interv{0,\infty}$ ein Maß.
+    \begin{enumerate}
+        \item Wir nennen das Paar $\pair{X, \mA}$ einen Messraum.
+        \item Wir nennen das Tripel $\pair{X, \mA, \mu}$ einen Maßraum.
+        \item Wir nennen $\mu$ endlich und $\pair{X, \mA, \mu}$ einen endlichen Maßraum, falls $\mu\of{X} < \infty$.
+        \item Wir nennen $\mu$ Wahrscheinlichkeitsmaß (W-Maß) und $\pair{X, \mA, \mu}$ einen Wahrscheinlichkeitsraum (W-Raum), falls $\mu\of{X} = 1$.
+        \item Wir nennen $\mu$ $\sigma$-endlich, falls es eine Folge $(A_n)_n \subseteq \mA$ gibt mit $A_n \nearrow X$ und\\$\mu\of{A_n} < \infty~\forall n\in\N$. In diesem Fall heißt $(A_n)_n$ eine ausschöpfende Folge.
+    \end{enumerate}
+\end{definition}
+
+\begin{satz}[Eigenschaften von Maßen] % Satz 3
+    \label{satz:eigenschaften-mass}
+    Seien $\pair{X, \mA, \mu}$ ein Maßraum sowie $A, B, A_n, B_n \in\mA$. Dann gilt
+    \begin{enumerate}[label=(\roman*)]
+        \item $A \cap B = \emptyset \impl \mu\of{A \sqcup B} = \mu\of{A} + \mu\of{B}$\hfill (Additivität)
+        \item $A \subseteq B \impl \mu\of{A} \leq \mu\of{B}$\hfill (Monotonie)
+        \item $A \subseteq B$ und $\mu\of{A} < \infty$ $\impl \mu\of{B\setminus A} = \mu\of{B} - \mu\of{A}$
+        \item $\mu\of{A\cup B} + \mu\of{A \cap B} = \mu\of{A} + \mu\of{B}$\hfill (Starke Additivität)
+        \item $\mu\of{A \cup B} \leq \mu\of{A} + \mu\of{B}$\hfill (Subadditivität)
+        \item $(A_n)_n\nearrow A \impl \displaystyle\mu\of{A} = \sup_{n\in\N} \mu\of{A_n} = \lim_{n\toinf} \mu\of{A_n}$\hfill (Stetigkeit von unten)
+        \item $(B_n)_n\searrow B$ und $\mu\of{B_1} < \infty$ $\impl \displaystyle\mu\of{B} = \inf_{n\in\N} \mu\of{B_n} = \lim_{n\toinf} \mu\of{B_n}$\hfill (Stetigkeit von oben)
+        \item $\displaystyle\mu\of{\bigcup_{n\in\N} A_n} \leq \sum_{n\in\N}^{} \mu\of{A_n}$\hfill ($\sigma$-Subadditivität)
+    \end{enumerate}
+
+    \begin{proof}
+        \theoremescape
+        \begin{enumerate}[label=(\roman*)]
+            \item Sei $A_1 \coloneqq A, A_2 \coloneqq B$ und $A_n \coloneqq \emptyset$ für $n\geq 3$. Dann gilt
+            \begin{align*}
+                A \sqcup B &= \bigsqcup_{n\in\N} A_n\\
+                \impl \mu\of{A\sqcup B} &= \sum_{n=1}^{\infty} \mu\of{A_n} = \mu\of{A_1} + \mu\of{A_2} = \mu\of{A} + \mu\of{B}
+            \end{align*}
+            \item Sei $A \subseteq B$, dann folgt $B = A \sqcup \pair{B\setminus A}$. Mit (i) folgt
+            \begin{align*}
+                \mu\of{B} &= \mu\of{A \sqcup \pair{B\setminus A}} = \mu\of{A} + \mu\of{B\setminus A} \geq \mu\of{A}
+            \end{align*}
+            \item $\mu\of{B} = \mu\of{A} + \mu\of{B\setminus A}$. Dann folgt $\mu\of{B\setminus A} = \mu\of{B} - \mu\of{A}$, falls $\mu\of{A} < \infty$.
+            \item Es gilt $A \cup B = A \sqcup \pair{B\setminus\pair{A \cap B}}$. Dann folgt
+            \begin{align*}
+                \mu\of{A \cup B} + \mu\of{A\cap B} &= \mu\of{A\sqcup\pair{B\setminus\pair{A\cap B}}} + \mu\of{A \cap B}\\
+                &= \mu\of{A} + \mu\of{B\setminus \pair{A\cap B}} + \mu\of{A \cap B}\\
+                &= \mu\of{A} + \mu\of{B} - \mu\of{A \cap B} + \mu\of{A \cap B}\\
+                &= \mu\of{A} + \mu\of{B}
+            \end{align*}
+            \item Aus (iv) folgt $\mu\of{A} + \mu\of{B} = \mu\of{A\cup B} + \mu\of{A \cap B} \geq \mu\of{A \cup B}$
+            \item Sei $(A_n)_n$ wachsend. Wir definieren eine neue Folge von Mengen $(F_n)_n$ mit $F_1 \coloneqq A_1$ und $F_n \coloneqq A_n \setminus A_{n-1}$ für $n\geq 2$. Dann sind $F_j$ paarweise disjunkt und es gilt
+            \begin{align*}
+                \bigcup_{j=1}^{n} A_j &= \bigsqcup_{j=1}^{n} F_j\\
+                \impl \mu\of{\bigcup_{n\in\N} A_n} &= \mu\of{\bigsqcup_{j\in\N} F_j} = \sum_{j=1}^{\infty} \mu\of{F_j}\\
+                &= \lim_{n\toinf} \sum_{j=1}^{n} \mu\of{F_j} = \lim_{n\toinf} \mu\of{\bigsqcup_{j=1}^{n} F_j}\\
+                &= \lim_{n\toinf} \mu\of{A_n} = \sup_{n\in\N} \mu\of{A_n}
+            \end{align*}
+            \item Sei $(B_n)_n \searrow B$ mit $\mu\of{B_1} < \infty$. Wir definieren $A_n \coloneqq B_1 \setminus B_n \nearrow B_1 \setminus B$ wachsend. Dann gilt nach (vi)
+            \begin{align*}
+                \mu\of{B_1 \setminus B} &= \lim_{n\toinf} \mu\of{B_1 \setminus B_n}\\
+                \impl\mu\of{B_1} - \mu\of{B} &= \lim_{n\toinf} \pair{\mu\of{B_1} - \mu\of{B_n}} = \mu\of{B_1} - \lim_{n\toinf} \mu\of{B_n}\\
+                \impl \mu\of{B} &= \lim_{n\toinf} \mu\of{B_n} = \inf_{n\in\N} \mu\of{B_n}
+            \end{align*}
+            \item Sei $(A_n)_n \subseteq \mA$. Dann ist $A \coloneqq \bigsqcup_{n\in\N} A_n$. Wir definieren $\hat{A}_k \coloneqq \bigcup_{j=1}^{k} A_j$ wachsend. Dann gilt
+            \begin{align*}
+                \bigcup_{k=1}^{\infty} \hat{A}_k &= \bigcup_{k=1}^{\infty} \bigcup_{n=1}^{k} A_n = \bigcup_{n\in\N} A_n
+                \intertext{Nach (v) gilt}
+                \mu\of{A} &= \mu\of{\bigcup_{k=1}^{\infty} \hat{A}_k} = \lim_{k\toinf} \mu\of{\hat{A}_k} = \lim_{k\toinf} \mu\of{\bigcup_{j=1}^{k} A_j}\\
+                &\leq \lim_{k\toinf} \sum_{j=1}^{k} \mu\of{A_j} = \sum_{n=1}^{\infty} \mu\of{A_n}\qedhere
+            \end{align*}
+        \end{enumerate}
+    \end{proof}
+\end{satz}
+
+\begin{bemerkung}
+    \theoremescape
+    \begin{enumerate}
+        \item Wir schreiben statt \anf{paarweise disjunkt} auch kürzer \anf{disjunkt}
+        \item Satz~\ref{satz:eigenschaften-mass} überträgt sich auch auf Prämaße, sofern $\mA$ stabil bezüglich Durchschnitt, Vereinigung und Mengendifferenz ist (für (i)-(iv)) und sofern $\mA$ stabil bezüglich abzählbaren Schnitten und Vereinigungen ist (für die verbleibenden Eigenschaften)
+    \end{enumerate}
+\end{bemerkung}
+
+\begin{beispiel}[Dirac-Maß]
+    Sei $X$ eine Menge, $\mA$ eine $\sigma$-Algebra in $X$ und $x_0\in X$. Wir definieren
+    \begin{align*}
+        \delta_{x_0}\of{A} \coloneqq \begin{cases}
+                                         0 &x_0\not\in A\\
+                                         1 &x_0\in A
+        \end{cases}
+    \end{align*}
+    Dann ist $\delta_{x_0}$ ein Maß in $X$ und wird als \textit{Dirac}-Maß bezeichnet.
+\end{beispiel}
+
+\begin{beispiel}
+    Sei $\mA\coloneqq\set{A\subseteq\R: A\text{ ist abzählbar oder }\comp{A}\text{ ist abzählbar}}$. Dann ist $\mA$ nach Beispiel~\ref{beispiel:sigma-algebren} (d) eine $\sigma$-Algebra in $\R$. Wir definieren ein Maß auf $\mA$ mit
+    \begin{align*}
+        \mu\of{A} &\coloneqq \begin{cases}
+                                 0 &A\text{ ist abzählbar}\\
+                                 1 &A\text{ ist nicht abzählbar}
+        \end{cases}
+    \end{align*}
+\end{beispiel}
+
+\begin{beispiel}[Zählmaß]
+    Sei $\pair{X, \mA}$ ein Messraum. Dann definieren wir das Zählmaß
+    \begin{align*}
+        \abs{A} &\coloneqq \begin{cases}
+                               \#A &\text{ falls $A$ endlich}\\
+                               \infty &\text{ falls $A$ unendlich}
+        \end{cases}
+    \end{align*}
+    wobei $\#A$ die Anzahl an Elemente in $A$ angibt.
+\end{beispiel}
+
+\begin{beispiel}[Diskretes W-Maß]
+    Sei $\Omega = \set{\omega_1, \omega_2, \ldots}$ eine abzählbare Menge, $\mA = \mathcal{P}\of{\Omega}$ und $(p_n)_{n\in\N} \subseteq\interv{0,1}$ mit $ \sum_{n\in\N}^{} p_n = 1$. Dann ist
+    \begin{align*}
+        \mathbb{P}\of{A} &\coloneqq \sum_{n\in\N:~\omega_n\in A}^{} p_n = \sum_{n\in\N}^{} p_n\delta_{\omega_n}\of{A}
+    \end{align*}
+    ein sogenanntes diskretes W-Maß. Der Raum $\pair{\Omega, \mA, \mathbb{P}}$ heißt diskreter W-Raum.
+\end{beispiel}
+
+\begin{bemerkung}[Ring und Algebra]
+    \marginnote{[28. Okt]}
+    Ein Mengensystem $R \subseteq\mathcal{P}\of{X}$ heißt Ring, wenn folgende Eigenschaften erfüllt sind
+    \begin{enumerate}[label=($\text{R}_{\arabic*}$)]
+        \item $\emptyset\in R$
+        \item $A, B\subseteq R \impl \pair{A \setminus B} \in R$
+        \item $A, B\subseteq R \impl \pair{A \cup B} \in R$
+    \end{enumerate}
+    Ist ferner $X\in R$, dann heißt $R$ Algebra.
+\end{bemerkung}
+
+\begin{bemerkung}[Eigenschaften von Mengenringen]
+    Es sei $R$ ein Mengenring. Dann gilt
+    \begin{enumerate}
+        \item Nach der Mengengleichheit $A \cap B = A \setminus \pair{A \setminus B}$ enthält $R$ auch Schnitte.
+        \item Wir definieren die symmetrische Mengendifferenz $\Delta: R \times R \to R,~\pair{A, B} \mapsto \pair{A\setminus B} \cup \pair{B\setminus A}$. Dann definiert $\pair{R, \Delta, \cap}$ einen kommutativen Ring im Sinne der Algebra, wobei $\Delta$ der \anf{Addition} und $\cap$ der \anf{Multiplikation} entspricht.
+    \end{enumerate}
+\end{bemerkung}
+
+\newpage
