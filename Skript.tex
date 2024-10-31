@@ -245,7 +245,7 @@
         \begin{enumerate}[label=($\text{D}_{\arabic*}$)]
             \item $X\in\mD$
             \item $D\in\mD \impl \comp{D}\in\mD$
-            \item Für eine paarweise disjunkte Mengenfolge $(D_n)_n \subseteq \mD \impl \bigsqcup_{n\in\N} D_n \in\mD$
+            \item Für eine paarweise disjunkte Mengenfolge $(D_n)_n \subseteq \mD \impl \dsty\bigsqcup_{n\in\N} D_n \in\mD$
         \end{enumerate}
     \end{definition}
 
@@ -258,7 +258,6 @@
     \end{beispiel}
 
     \begin{lemma}
-        \label{lemma:dynkin-sigma-equiv}
         Sei $I$ eine beliebige Indexmenge und $(\mD_j)_{j\in I}$ eine Familie von Dynkinsystemen in $X$, dann ist $\displaystyle\bigcap_{j\in I} \mD_j$ wieder ein Dynkinsystem.
         \begin{proof}
         (Übung)
@@ -268,7 +267,11 @@
     \begin{satz} % Satz 4
         Sei $\mG \subseteq\mP\of{X}$. Dann existiert das kleinste Dynkinsystem $\delta\of{\mG}$, welches $\mG$ enthält. Wir nennen $\delta\of{\mG}$ das von $\mG$ erzeugte Dynkinsystem.
         \begin{proof}
-            $\mP\of{X}$ ist ein Dynkinsystem. Wir definieren also $I = \set{\mD\subseteq\mP\of{X}: \mD\text{ ist ein Dynkinsystem und }\mG\subseteq\mD} \neq \emptyset$. Anschließend setzen wir analog zum Schnitt über $\sigma$-Algebren
+            $\mP\of{X}$ ist ein Dynkinsystem. Wir definieren also
+            \begin{align*}
+                I &= \set{\mD\subseteq\mP\of{X}: \mD\text{ ist ein Dynkinsystem und }\mG\subseteq\mD} \neq \emptyset
+            \end{align*}
+            Anschließend setzen wir analog zum Schnitt über $\sigma$-Algebren
             \begin{align*}
                 \delta\of{\mG} &\coloneqq \bigcap_{\mD\in I} \mD\qedhere
             \end{align*}
@@ -282,17 +285,20 @@
     Frage: Wann ist ein Dynkinsystem eine $\sigma$-Algebra?
 
     \begin{lemma}
-        Sei $\mD$ ein Dynkinsystem. Dann gilt $\mD$ ist genau dann eine $\sigma$-Algebra, wenn $A, B \in \mD \impl \pair{A \cap B} \in\mD$
+        \label{lemma:dynkin-sigma-equiv}
+        Sei $\mD$ ein Dynkinsystem. Dann gilt $\mD$ ist genau dann eine $\sigma$-Algebra, wenn $A, B \in \mD \impl \pair{A \cap B} \in\mD$.
 
         \begin{proof}
             \theoremescape
             \anf{$\impl$} Sei $\mD$ eine $\sigma$-Algebra. Dann ist $\mD$ ein Dynkinsystem. Seien $A, B\in\mD$. Dann folgt $\comp{A}, \comp{B} \in \mD \impl A \cap B = \comp{\pair{\comp{A} \cup \comp{B}}} \in \mD$.\\[0.5\baselineskip]
-            \anf{$\Leftarrow$} Zu zeigen ist Eigenschaft ($\Sigma_3$). Sei $(D_n)_n \in\mD$ eine Mengenfolge. Wir definieren $D_0' \coloneqq \emptyset$ und $D_n' \coloneqq D_1 \cup D_2 \cup \dots \cup D_n$. Dann ist $(D_n)_n$ eine aufsteigende Folge und es gilt
+            \anf{$\Leftarrow$} Zu zeigen ist Eigenschaft ($\Sigma_3$). Sei $(D_n)_n \subseteq\mD$ eine Mengenfolge. Wir definieren $D_0' \coloneqq \emptyset$ und $D_n' \coloneqq D_1 \cup D_2 \cup \dots \cup D_n$. Dann ist $(D'_n)_n$ eine aufsteigende Folge und es gilt
             \begin{align*}
                 \bigcup_{n\in\N} D_n = \bigcup_{n\in\N} D_n' &= \bigsqcup_{n\in\N} \pair{D_n' \setminus D_{n-1}'}
-                \intertext{Außerdem ist}
-                \bigsqcup_{n\in\N} &\pair{D_n' \setminus D_{n-1}'} \in \mD
-                \intertext{falls $\pair{D_n' \setminus D_{n-1}'} \in \mD~\forall n\in\N$. Und es gilt $D_n' \setminus D_{n-1}' = \pair{D_n' \cap \comp{\pair{D_{n-1}'}}}\in \mD$, falls $D_n' \in \mD~\forall n\in\N_0$. Wir haben also unsere Behauptung gezeigt, wenn wir gezeigt haben, dass $\mD$ $\cup$-stabil ist. Außerdem gilt}
+            \end{align*}
+            Außerdem ist
+            \begin{align*}
+                \bigsqcup_{n\in\N} \pair{D_n' \setminus D_{n-1}'} \in &\mD\text{ falls } \pair{D_n' \setminus D_{n-1}'} \in \mD~\forall n\in\N
+                \intertext{Und es gilt $D_n' \setminus D_{n-1}' = \pair{D_n' \cap \comp{\pair{D_{n-1}'}}}\in \mD$, falls $D_n' \in \mD~\forall n\in\N_0$. Wir haben also unsere Behauptung gezeigt, wenn wir gezeigt haben, dass $\mD$ $\cup$-stabil ist. Es gilt aber}
                 A \cup B &= \comp{\pair{\comp{A} \cap \comp{B}}} \in \mD
             \end{align*}
             Damit ist ($\Sigma_3$) gezeigt.
@@ -300,13 +306,14 @@
     \end{lemma}
 
     \begin{satz} % Satz 6
-        Sei $X$ eine beliebige Menge und $\mG\subseteq\mP\of{X}$. Dann folgt aus $\mG$ ist $\cap$-stabil, dass $\delta\of{\mG}$ $\cap$-stabil ist. Und damit ist auch $\delta\of{\mG}$ eine $\sigma$-Algebra, das heißt in diesem Fall gilt $\sigma\of{\mG} = \delta\of{\mG}$(\footnote{Das liegt daran, dass $\delta\of{\mG} \subseteq \delta\of{\sigma\of{\mG}} = \sigma\of{\mG}$ und $\sigma\of{\mG}$ die kleinste $\sigma$-Algebra ist, die $\mG$ enthält.}).
+        \label{satz:dynkin-cap-stabil}
+        Sei $X$ eine beliebige Menge und $\mG\subseteq\mP\of{X}$. Dann folgt aus $\mG$ ist $\cap$-stabil, dass $\delta\of{\mG}$ $\cap$-stabil ist.
         \begin{proof}
             Wir nehmen ein beliebiges $D \in \delta\of{\mG}$ und definieren
             \begin{align*}
-                \mD_D \coloneqq \set{\mQ\in\mP\of{X}: \mQ \cap D \in \delta\of{\mG}}
+                \mD_D \coloneqq \set{Q\in\mP\of{X}: Q \cap D \in \delta\of{\mG}}
             \end{align*}
-            Behauptung: $\mD_D$ ist ein Dynkinsystem. Stimmt diese Behauptung, dann können wir folgendermaßen folgern: Da $\mG$ $\cap$-stabil ist, gilt
+            Behauptung: $\mD_D$ ist ein Dynkinsystem. Stimmt diese Behauptung, dann können wir folgendermaßen argumentieren: Da $\mG$ $\cap$-stabil ist, gilt
             \begin{align*}
                 \forall G, D\in \mG: G \cap D\in \mG \subseteq \delta\of{\mG}\\
                 \equivalent \forall D\in\mG: \mG \subseteq\mD_D\\
@@ -321,12 +328,20 @@
             Das heißt $\delta\of{\mG}$ ist $\sigma$-stabil.\\[.5\baselineskip]
             Wir zeigen noch die Behauptung:
             \begin{enumerate}[label=($\text{D}_\arabic*$)]
-                \item Sei $D \in\mG$ und $X\in\mD_D$. Dann ist $X\cap D = D \in \mD_D$.
-                \item Sei $Q\in\mD_D$. Dann ist auch $\comp{Q}\in\mD_D$, denn $\comp{Q} \cap D = \pair{\comp{Q} \cup \comp{D}}\cap D = \comp{\pair{Q \cap D}} \cap D = \comp{\pair{\pair{G \cap D} \sqcup \comp{D}}} \in\delta\of{\mG}$.
+                \item Da $X \cap D = D \in\delta\of{\mG}$ folgt $X\in \mD_D$.
+                \item Sei $Q\in\mD_D$. Dann ist auch $\comp{Q}\in\mD_D$, denn $\comp{Q} \cap D = \pair{\comp{Q} \cup \comp{D}}\cap D = \comp{\pair{Q \cap D}} \cap D = D \setminus\pair{Q\cap D} \in\delta\of{\mG}$.
                 \item (Nächste Vorlesung)
             \end{enumerate}
         \end{proof}
     \end{satz}
+
+    \begin{korollar}
+        Sei $X$ eine beliebige Menge und $\mG \subseteq\mathcal{P}\of{X}$. Wenn $\mG$ $\cap$-stabil ist, dann ist $\delta\of{\mG}$ eine $\sigma$-Algebra und es gilt $\sigma\of{\mG} = \delta\of{\mG}$.
+
+        \begin{proof}
+            Nach Satz~\ref{satz:dynkin-cap-stabil} ist $\delta\of{\mG}$ $\cap$-stabil und damit nach Lemma~\ref{lemma:dynkin-sigma-equiv} eine $\sigma$-Algebra. Damit gilt dann $\sigma\of{\mG} \subseteq \delta\of{\mG}$, da $\sigma\of{\mG}$ die kleinste $\sigma$-Algebra ist, die $\mG$ enthält. Außerdem ist $\delta\of{\mG}\subseteq \delta\of{\sigma\of{\mG}} = \sigma\of{\mG}$.
+        \end{proof}
+    \end{korollar}
 
 
 \end{document}
