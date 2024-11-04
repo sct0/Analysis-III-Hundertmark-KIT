@@ -400,11 +400,11 @@
         Wir nennen $(G_n)_n$ im Sinne von Satz~\ref{satz:eindeutigkeitssatz} eine ausschöpfende Folge. Wir nennen ein Maß $\mu$ auf $\mA$ $\sigma$-endlich, wenn es eine Folge $(G_n)_n \subseteq \mA$ gibt mit $G_n \nearrow X$ und $\mu\of{G_n} < \infty~\forall n\in\N$.
     \end{bemerkung}
 
-    \begin{satz}[Eigenschaften der \textit{Borel}mengen]
+    \begin{satz}[Eigenschaften der Borelmengen]
         In Definition~\ref{definition:sigma-borel} hatten wir $\mB\of{\R^d} \coloneqq \sigma\of{\mO_d}$, wobei $\mO$ das System offener Teilmengen im $\R^d$ war. Wir definieren nun
         \begin{enumerate}[label=-]
             \item $\mA_d$: System der abgeschlossenen Teilmengen im $\R^d$
-            \item $\mK_d$: System der kompakten Teilmengen in $\R^d$
+            \item $\mK_d$: System der kompakten Teilmengen im $\R^d$
         \end{enumerate}
         Dann gilt $\sigma\of{\mK_d} = \sigma\of{\mA_d} = \sigma\of{\mO_d} = \mB\of{\R^d}$.
         \begin{proof}
@@ -451,10 +451,10 @@
         \begin{proof}
             Sei $c\in\R^d$ fest. \textsc{Schritt 1}: Wir wenden das \anf{Wünsch-dir-was}-Vorgehen an und definieren
             \begin{align*}
-                \mA \coloneqq \set{A \in B^d: A + c \in B^d}
+                \mA \coloneqq \set{A \in \mB^d: A + c \in \mB^d}
             \end{align*}
             Dann ist $\mA$ eine $\sigma$-Algebra (Übung).\\
-            \textsc{Schritt 2}: $\mO_d$ ist translationsinvariant. Das heißt $\mO_d \in \mA \impl \mB^d = \sigma\of{\mO_d} \subseteq \sigma\of{\mA} = \mA$. Das heißt $\mB^d \subseteq \mA$. Damit sind die Borelmengen translationsinvariant.
+            \textsc{Schritt 2}: $\mO_d$ ist translationsinvariant. Das heißt $\mO_d \subseteq \mA \impl \mB^d = \sigma\of{\mO_d} \subseteq \sigma\of{\mA} = \mA$. Das heißt $\mB^d \subseteq \mA$. Damit sind die Borelmengen translationsinvariant.
         \end{proof}
     \end{lemma}
 
