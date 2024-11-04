@@ -132,19 +132,22 @@
 \newcommand{\Q}{\mathbb{Q}}
 \newcommand{\K}{\mathbb{K}}
 
-\newcommand{\mR}{\mathcal{R}}
+\newcommand{\mA}{\mathcal{A}}
 \newcommand{\mB}{\mathcal{B}}
 \newcommand{\mC}{\mathcal{C}}
-\newcommand{\mL}{\mathcal{L}}
-\newcommand{\mJ}{\mathcal{J}}
-\newcommand{\mP}{\mathcal{P}}
-\newcommand{\mPC}{\mathcal{PC}}
-\newcommand{\mM}{\mathcal{M}}
-\newcommand{\mS}{\mathcal{S}}
-\newcommand{\mA}{\mathcal{A}}
 \newcommand{\mD}{\mathcal{D}}
+\newcommand{\mE}{\mathcal{E}}
 \newcommand{\mG}{\mathcal{G}}
+\newcommand{\mJ}{\mathcal{J}}
+\newcommand{\mK}{\mathcal{K}}
+\newcommand{\mL}{\mathcal{L}}
+\newcommand{\mM}{\mathcal{M}}
+\newcommand{\mO}{\mathcal{O}}
+\newcommand{\mP}{\mathcal{P}}
 \newcommand{\mQ}{\mathcal{Q}}
+\newcommand{\mR}{\mathcal{R}}
+\newcommand{\mS}{\mathcal{S}}
+\newcommand{\mPC}{\mathcal{PC}}
 
 % Spezielle Symbole
 \NewDocumentCommand{\Tau}{e{^_}}{
@@ -330,12 +333,13 @@
             \begin{enumerate}[label=($\text{D}_\arabic*$)]
                 \item Da $X \cap D = D \in\delta\of{\mG}$ folgt $X\in \mD_D$.
                 \item Sei $Q\in\mD_D$. Dann ist auch $\comp{Q}\in\mD_D$, denn $\comp{Q} \cap D = \pair{\comp{Q} \cup \comp{D}}\cap D = \comp{\pair{Q \cap D}} \cap D = D \setminus\pair{Q\cap D} \in\delta\of{\mG}$.
-                \item (Nächste Vorlesung)
+                \item (Fehlt, siehe handschriftliches Skript)\qedhere
             \end{enumerate}
         \end{proof}
     \end{satz}
 
     \begin{korollar}
+        \label{korollar:dynkin-sigma}
         Sei $X$ eine beliebige Menge und $\mG \subseteq\mathcal{P}\of{X}$. Wenn $\mG$ $\cap$-stabil ist, dann ist $\delta\of{\mG}$ eine $\sigma$-Algebra und es gilt $\sigma\of{\mG} = \delta\of{\mG}$.
 
         \begin{proof}
@@ -343,5 +347,115 @@
         \end{proof}
     \end{korollar}
 
+    \newpage
+
+
+    \section{[*] Eindeutigkeit von Maßen und erste Eigenschaften des Lebesgue-Maßes}
+    \imaginarysubsection{Eindeutigkeit von Maßen}
+
+    \begin{satz}[Eindeutigkeitssatz]
+        \marginnote{[04. Nov]}
+        \label{satz:eindeutigkeitssatz}
+        Sei $(X, \mA)$ ein beliebiger Messraum und $\mA = \sigma\of{\mE}$ für $\mE \subseteq\mP\of{X}$. Ferner seien $\mu, \nu$ Maße auf $\mA$ mit
+        \begin{enumerate}[label=(\alph*)]
+            \item $\mE$ ist $\cap$-stabil
+            \item Es gibt Mengen $G_n \in \mE$ mit $G_n \nearrow X$ ($X = \bigcup_{n\in\N} G_n$) mit $\mu\of{G_n}, \nu\of{G_n} < \infty~\forall n\in\N$
+        \end{enumerate}
+        Dann gilt: Aus $\mu\of{A} = \nu\of{A}~\forall A\in\mE$ folgt $\mu = \nu$ auf $\mA$. Das heißt unter den obigen Voraussetzungen wird ein Maß eindeutig durch seine Werte auf dem Erzeuger definiert.
+
+        \begin{proof}
+            Da $\mE$ $\cap$-stabil ist, folgt nach Korollar~\ref{korollar:dynkin-sigma}, dass $\delta\of{\mE} = \sigma\of{\mE} = \mA$. Wir halten $n\in\N$ fest und betrachten
+            \begin{align*}
+                \mD_n &\coloneqq \set{A\in \mA: \mu\of{G_n \cap A} = \nu\of{G_n \cap A}}
+            \end{align*}
+            $\mD_n$ ist ein Dynkinsystem:
+            \begin{enumerate}[label=($\text{D}_{\arabic*}$)]
+                \item Folgt direkt.
+                \item Sei $A\in\mD_n$. Dann ist
+                \begin{align*}
+                    \mu\of{G_n \cap \comp{A}} &= \mu\of{G_n \setminus A} = \mu\of{G_n \setminus\pair{A \cap G_n}}\\
+                    &= \mu\of{G_n} - \mu\of{A \cap G_n}\\
+                    &= \nu\of{G_n} - \nu\of{A \cap G_n}\\
+                    &= \nu\of{G_n \cap \comp{A}}\\
+                    \impl \comp{A} &\in \mD_n
+                \end{align*}
+                \item Sei $(A_m)_m \subseteq \mD_n$ eine Folge paarweise disjunkter Mengen. Dann gilt
+                \begin{align*}
+                    \mu\of{\pair{\bigsqcup_{m\in\N} A_m} \cap G_n} &= \mu\of{\bigsqcup_{m\in\N} \pair{A_m \cap G_n}} = \sum_{m\in\N}^{} \mu\of{A_m \cap G_n}\\
+                    &= \sum_{m\in\N}^{} \nu\of{A_m \cap G_n} = \nu\of{\pair{\bigsqcup_{m\in\N} A_m} \cap G_n}\\
+                    \impl \bigsqcup_{m\in\N} A_m &\in \D_n
+                \end{align*}
+            \end{enumerate}
+            Nach Konstruktion von $\mD_n$ gilt $\mD_n \subseteq\mA$. Andererseits ist $\mE\subseteq\mD_n$. Sei $A \in\mE$ und $A \cap G_n \in \mE$, da $\mE$ $\cap$-stabil. Nach Voraussetzung gilt $\nu\of{A \cap G_n} = \mu\of{A \cap G_n}$, also folgt $A \in\mD_n$.\\
+            Da $\mE \subseteq\mD_n \impl \sigma\of{\mE} = \delta\of{\mE} \subseteq \delta\of{\mE} = \mD_n$. Damit gilt $\sigma\of{\mE} \subseteq  \mD_n$. Das heißt $\forall A\in\sigma\of{\mE}$ folgt $\mu\of{A \cap G_n} = \nu\of{A \cap G_n}$.\\
+            Für $A\in \sigma\of{\mE}$ definieren wir eine aufsteigende Folge $A_n \coloneqq A \cap G_n \nearrow A$. Da $\mu, \nu$ Maße sind, sind sie von unten stetig. Das heißt
+            \begin{align*}
+                \mu\of{A} &= \lim_{n\toinf} \mu\of{A_n} = \lim_{n\toinf} \mu\of{A \cap G_n}\\
+                &= \lim_{n\toinf} \nu\of{A \cap G_n} = \nu\of{A}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    \begin{bemerkung}[Ausschöpfende Folgen]
+        Wir nennen $(G_n)_n$ im Sinne von Satz~\ref{satz:eindeutigkeitssatz} eine ausschöpfende Folge. Wir nennen ein Maß $\mu$ auf $\mA$ $\sigma$-endlich, wenn es eine Folge $(G_n)_n \subseteq \mA$ gibt mit $G_n \nearrow X$ und $\mu\of{G_n} < \infty~\forall n\in\N$.
+    \end{bemerkung}
+
+    \begin{satz}[Eigenschaften der \textit{Borel}mengen]
+        In Definition~\ref{definition:sigma-borel} hatten wir $\mB\of{\R^d} \coloneqq \sigma\of{\mO_d}$, wobei $\mO$ das System offener Teilmengen im $\R^d$ war. Wir definieren nun
+        \begin{enumerate}[label=-]
+            \item $\mA_d$: System der abgeschlossenen Teilmengen im $\R^d$
+            \item $\mK_d$: System der kompakten Teilmengen in $\R^d$
+        \end{enumerate}
+        Dann gilt $\sigma\of{\mK_d} = \sigma\of{\mA_d} = \sigma\of{\mO_d} = \mB\of{\R^d}$.
+        \begin{proof}
+            \textsc{Schritt 1}: $\sigma\of{\mA_d} = \sigma\of{\mO_d}$ ist klar, da $\sigma$-Algebren stabil unter Komplementbildung sind.\\
+            \textsc{Schritt 2}: Es gilt $\mK_d \subseteq \mA_d \impl \sigma\of{\mK_d} \subseteq \sigma\of{\mA_d}$.\\
+            \textsc{Schritt 3}: Für $n\in\N$ definieren wir $K_n \coloneqq \set{\abs{x} < n}$. Sei $A \in \mA_d$, dann ist $A\cap K_n$ kompakt und
+            \begin{align*}
+                \bigcup_{n\in\N} K_n &= \R^d\\
+                A &= \bigcup_{n\in\N} \pair{A \cap K_n} \in \sigma\of{\mK_d}\\
+                \impl \mA &\subseteq \sigma\of{\mK_d}\\
+                \impl \sigma\of{\mA_d} &\subseteq \sigma\of{\sigma\of{\mK_d}} = \sigma\of{\mK_d}\\
+                \impl \sigma\of{\mK_d} &= \sigma\of{\mA_d} = \sigma\of{\mO_d}\qedhere
+            \end{align*}
+        \end{proof}
+    \end{satz}
+
+    Im Folgenden nehmen wir an, dass das Lebesgue-Maß $\lambda^d$ auf $\mB\of{\R^d}$ existiert. Wir werden das später noch beweisen, aber entwickeln das Maß nun nach unserem geometrischen Verständnis unter der Annahme, dass es existiert (das tut es) und untersuchen erste Eigenschaften:
+
+    \begin{beobachtung}
+        Wir betrachten den Fall $d=1$ und ein halboffenes Intervall $I\coloneqq \linterv{a,b}$. Dann muss gelten $\lambda^1\of{I} = b-a$. Wir betrachten allgemeine $d$ mit $a,b\in\R^d$ wobei $a\leq b$ (das heißt $a_j \leq b_j$). Dann sei
+        \begin{align*}
+            \linterv{a,b} &\coloneqq \set{x\in\R^d: a_j \leq x_j \leq b_j~\forall j\in\set{1,\ldots, d}}\\
+            \intertext{und wir definieren nach unserem geometrischen Verständnis}
+            \lambda^d\of{\linterv{a,b}} &\coloneqq \prod_{j=1}^{d} \pair{b_j - a_j}
+        \end{align*}
+    \end{beobachtung}
+
+    \begin{definition}
+        Es sei $J^d \coloneqq \set{\linterv{a,b}: a,b\in\R^d,~a\leq b}$ das Mengensystem der halboffenen Intervalle im $\R^d$.
+    \end{definition}
+
+    \begin{bemerkung}[Translationsinvarianz des Lebesgue-Maß]
+        Es sei $c\in\R^d$ und wir definieren eine Translation $T_c\of{x} \coloneqq x+c$ mit inverser Funktion $T_c^{-1}$. Dann gilt für ein halboffenes Intervall $I \coloneqq \linterv{a,b}$
+        \begin{align*}
+            \lambda^d\of{T_c^{-1}\of{I}} &= \lambda^d\of{\linterv{a-c, b-c}}\\
+            &= \prod_{j=1}^{d} \pair{b_j - c_j - \pair{a_j - c_j}}\\
+            &= \prod_{j=1}^{d} \pair{b_j - a_j} = \lambda^d\of{I}
+        \end{align*}
+        Das heißt auf $J^d$ ist $\lambda^d$ invariant unter Translation.
+    \end{bemerkung}
+
+    \begin{lemma}
+        Sei $B \in\mB^d$ eine Borelmenge und $c\in\R^d$. Dann ist $B + c \coloneqq\set{b+c: b\in B} \in\mB^d$.
+        \begin{proof}
+            Sei $c\in\R^d$ fest. \textsc{Schritt 1}: Wir wenden das \anf{Wünsch-dir-was}-Vorgehen an und definieren
+            \begin{align*}
+                \mA \coloneqq \set{A \in B^d: A + c \in B^d}
+            \end{align*}
+            Dann ist $\mA$ eine $\sigma$-Algebra (Übung).\\
+            \textsc{Schritt 2}: $\mO_d$ ist translationsinvariant. Das heißt $\mO_d \in \mA \impl \mB^d = \sigma\of{\mO_d} \subseteq \sigma\of{\mA} = \mA$. Das heißt $\mB^d \subseteq \mA$. Damit sind die Borelmengen translationsinvariant.
+        \end{proof}
+    \end{lemma}
 
 \end{document}
